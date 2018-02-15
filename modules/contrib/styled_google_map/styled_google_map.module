@@ -1,0 +1,629 @@
+<?php
+/**
+ * @file
+ * Contains all hooks and functions for the Styled Google Map module.
+ */
+
+define('STYLED_GOOGLE_MAP_DEFAULT_WIDTH', '450px');
+define('STYLED_GOOGLE_MAP_DEFAULT_HEIGHT', '400px');
+define('STYLED_GOOGLE_MAP_DEFAULT_STYLE', '[]');
+define('STYLED_GOOGLE_MAP_DEFAULT_ZOOM', 15);
+define('STYLED_GOOGLE_MAP_DEFAULT_MAX_ZOOM', 17);
+define('STYLED_GOOGLE_MAP_DEFAULT_MIN_ZOOM', 5);
+define('STYLED_GOOGLE_MAP_DEFAULT_PIN', 'module://styled_google_map/pin.png');
+define('STYLED_GOOGLE_MAP_DEFAULT_MAP_TYPE', 'ROADMAP');
+define('STYLED_GOOGLE_MAP_DEFAULT_LABEL', FALSE);
+define('STYLED_GOOGLE_MAP_DEFAULT_MAP_TYPE_CONTROL', TRUE);
+define('STYLED_GOOGLE_MAP_DEFAULT_SCALE_CONTROL', TRUE);
+define('STYLED_GOOGLE_MAP_DEFAULT_ROTATE_CONTROL', TRUE);
+define('STYLED_GOOGLE_MAP_DEFAULT_DRAGGABLE', TRUE);
+define('STYLED_GOOGLE_MAP_DEFAULT_MOBILE_DRAGGABLE', TRUE);
+define('STYLED_GOOGLE_MAP_DEFAULT_ZOOM_CONTROL', TRUE);
+define('STYLED_GOOGLE_MAP_DEFAULT_STREET_VIEW_CONTROL', TRUE);
+define('STYLED_GOOGLE_MAP_DEFAULT_SCROLLWHEEL', TRUE);
+define('STYLED_GOOGLE_MAP_DEFAULT_SHADOW_STYLE', 0);
+define('STYLED_GOOGLE_MAP_DEFAULT_PADDING', 13);
+define('STYLED_GOOGLE_MAP_DEFAULT_BORDER_RADIUS', 7);
+define('STYLED_GOOGLE_MAP_DEFAULT_BORDER_WIDTH', 1);
+define('STYLED_GOOGLE_MAP_DEFAULT_BORDER_COLOR', '#cccccc');
+define('STYLED_GOOGLE_MAP_DEFAULT_BACKGROUND_COLOR', '#ffffff');
+define('STYLED_GOOGLE_MAP_DEFAULT_MIN_WIDTH', 'auto');
+define('STYLED_GOOGLE_MAP_DEFAULT_MAX_WIDTH', 'auto');
+define('STYLED_GOOGLE_MAP_DEFAULT_MIN_HEIGHT', 'auto');
+define('STYLED_GOOGLE_MAP_DEFAULT_MAX_HEIGHT', 'auto');
+define('STYLED_GOOGLE_MAP_DEFAULT_AUTO_CLOSE', true);
+define('STYLED_GOOGLE_MAP_DEFAULT_ARROW_SIZE', 10);
+define('STYLED_GOOGLE_MAP_DEFAULT_ARROW_POSITION', 50);
+define('STYLED_GOOGLE_MAP_DEFAULT_ARROW_STYLE', 0);
+define('STYLED_GOOGLE_MAP_DEFAULT_DISABLE_AUTO_PAN', 0);
+define('STYLED_GOOGLE_MAP_DEFAULT_HIDE_CLOSE_BUTTON', 0);
+define('STYLED_GOOGLE_MAP_DEFAULT_DISABLE_ANIMATION', 1);
+define('STYLED_GOOGLE_MAP_DEFAULT_BACKGROUND_CLASS', 'sgmpopup-content');
+define('STYLED_GOOGLE_MAP_DEFAULT_CONTENT_CONTAINER_CLASS', 'sgmpopup-content-wrapper');
+define('STYLED_GOOGLE_MAP_DEFAULT_ARROW_CLASS', 'sgmpopup-arrow');
+define('STYLED_GOOGLE_MAP_DEFAULT_ARROW_OUTER_CLASS', 'sgmpopup-arrow-outer');
+define('STYLED_GOOGLE_MAP_DEFAULT_ARROW_INNER_CLASS', 'sgmpopup-arrow-inner');
+
+/**
+ * Implements hook_theme().
+ */
+function styled_google_map_theme() {
+  $themes['styled_google_map'] = array(
+    'variables' => array(
+      'location' => NULL,
+      'display' => NULL,
+      'entity' => NULL,
+      'entity_type' => NULL,
+    ),
+  );
+
+  return $themes;
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function styled_google_map_field_formatter_info() {
+  $formatters = array(
+    'styled_google_map_map_formatter' => array(
+      'label' => t('Styled Google Map'),
+      'field types' => array('geofield'),
+      'settings' => array(
+        'width' => STYLED_GOOGLE_MAP_DEFAULT_WIDTH,
+        'height' => STYLED_GOOGLE_MAP_DEFAULT_HEIGHT,
+        'style' => array(
+          'maptype' => STYLED_GOOGLE_MAP_DEFAULT_MAP_TYPE,
+          'style' => STYLED_GOOGLE_MAP_DEFAULT_STYLE,
+          'pin' => '',
+        ),
+        'map_center' => array(
+          'center_coordinates' => NULL,
+        ),
+        'popup' => array(
+          'choice' => NULL,
+          'text' => NULL,
+          'view_mode' => NULL,
+          'label' => STYLED_GOOGLE_MAP_DEFAULT_LABEL,
+          'shadow_style' => STYLED_GOOGLE_MAP_DEFAULT_SHADOW_STYLE,
+          'padding' => STYLED_GOOGLE_MAP_DEFAULT_PADDING,
+          'border_radius' => STYLED_GOOGLE_MAP_DEFAULT_BORDER_RADIUS,
+          'border_width' => STYLED_GOOGLE_MAP_DEFAULT_BORDER_WIDTH,
+          'border_color' => STYLED_GOOGLE_MAP_DEFAULT_BORDER_COLOR,
+          'background_color' => STYLED_GOOGLE_MAP_DEFAULT_BACKGROUND_COLOR,
+          'min_width' => STYLED_GOOGLE_MAP_DEFAULT_MIN_WIDTH,
+          'max_width' => STYLED_GOOGLE_MAP_DEFAULT_MAX_WIDTH,
+          'min_height' => STYLED_GOOGLE_MAP_DEFAULT_MIN_HEIGHT,
+          'max_height' => STYLED_GOOGLE_MAP_DEFAULT_MAX_HEIGHT,
+          'arrow_style' => STYLED_GOOGLE_MAP_DEFAULT_ARROW_STYLE,
+          'arrow_size' => STYLED_GOOGLE_MAP_DEFAULT_ARROW_SIZE,
+          'arrow_position' => STYLED_GOOGLE_MAP_DEFAULT_ARROW_POSITION,
+          'disable_auto_pan' => STYLED_GOOGLE_MAP_DEFAULT_DISABLE_AUTO_PAN,
+          'hide_close_button' => STYLED_GOOGLE_MAP_DEFAULT_HIDE_CLOSE_BUTTON,
+          'disable_animation' => STYLED_GOOGLE_MAP_DEFAULT_DISABLE_ANIMATION,
+          'classes' => array(
+            'content_container' => STYLED_GOOGLE_MAP_DEFAULT_CONTENT_CONTAINER_CLASS,
+            'background' => STYLED_GOOGLE_MAP_DEFAULT_BACKGROUND_CLASS,
+            'arrow' => STYLED_GOOGLE_MAP_DEFAULT_ARROW_CLASS,
+            'arrow_outer' => STYLED_GOOGLE_MAP_DEFAULT_ARROW_OUTER_CLASS,
+            'arrow_inner' => STYLED_GOOGLE_MAP_DEFAULT_ARROW_INNER_CLASS,
+          ),
+        ),
+        'zoom' => array(
+          'default' => STYLED_GOOGLE_MAP_DEFAULT_ZOOM,
+          'max' => STYLED_GOOGLE_MAP_DEFAULT_MAX_ZOOM,
+          'min' => STYLED_GOOGLE_MAP_DEFAULT_MIN_ZOOM,
+        ),
+        'maptypecontrol' => STYLED_GOOGLE_MAP_DEFAULT_MAP_TYPE_CONTROL,
+        'scalecontrol' => STYLED_GOOGLE_MAP_DEFAULT_SCALE_CONTROL,
+        'rotatecontrol' => STYLED_GOOGLE_MAP_DEFAULT_ROTATE_CONTROL,
+        'draggable' => STYLED_GOOGLE_MAP_DEFAULT_DRAGGABLE,
+        'mobile_draggable' => STYLED_GOOGLE_MAP_DEFAULT_MOBILE_DRAGGABLE,
+        'zoomcontrol' => STYLED_GOOGLE_MAP_DEFAULT_ZOOM_CONTROL,
+        'streetviewcontrol' => STYLED_GOOGLE_MAP_DEFAULT_STREET_VIEW_CONTROL,
+        'scrollwheel' => STYLED_GOOGLE_MAP_DEFAULT_SCROLLWHEEL,
+      ),
+    ),
+  );
+
+  return $formatters;
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function styled_google_map_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $elements = array();
+
+  // Theme field element to a Styled Google Map with given theme variables.
+  if ($display['type'] == 'styled_google_map_map_formatter') {
+    foreach ($items as $item) {
+      $elements[] = array(
+        '#location' => $item,
+        '#display' => $display,
+        '#entity' => $entity,
+        '#entity_type' => $entity_type,
+        '#theme' => 'styled_google_map',
+      );
+    }
+  }
+
+  return $elements;
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function styled_google_map_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  // Include CTools dependent to hide/show our form fields.
+  ctools_include('dependent');
+  $element = array();
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  // Set all available setting fields for the Styled Google Map.
+  if ($display['type'] == 'styled_google_map_map_formatter') {
+    $element['width'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Width size'),
+      '#default_value' => $settings['width'],
+      '#description' => t('Map width written in pixels or percentage'),
+      '#required' => TRUE,
+    );
+    $element['height'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Height size'),
+      '#default_value' => $settings['height'],
+      '#description' => t('Map height written in pixels or percentage'),
+      '#required' => TRUE,
+    );
+    $element['style'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Map style'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $element['style']['maptype'] = array(
+      '#type' => 'select',
+      '#options' => array(
+        'ROADMAP' => t('ROADMAP'),
+        'SATELLITE' => t('SATELLITE'),
+        'HYBRID' => t('HYBRID'),
+        'TERRAIN' => t('TERRAIN'),
+      ),
+      '#title' => t('Map type'),
+      '#default_value' => $settings['style']['maptype'],
+      '#required' => TRUE,
+    );
+    $element['style']['style'] = array(
+      '#type' => 'textarea',
+      '#title' => t('JSON Style'),
+      '#default_value' => $settings['style']['style'],
+      '#description' => t('Check out !url for custom styles. Also check out this !project to style and edit Google Map JSON styles.', array(
+          '!url' => l(t('Snazzy maps'), 'http://snazzymaps.com/', array('attributes' => array('target' => '_blank'))),
+          '!project' => l(t('Github page'), 'http://instrument.github.io/styled-maps-wizard/', array('attributes' => array('target' => '_blank'))))
+      ),
+    );
+    $element['style']['pin'] = array(
+      '#type' => 'textfield',
+      '#title' => t('URL to the marker'),
+      '#default_value' => $settings['style']['pin'],
+      '#description' => t('URL to the marker image. You can use a !wrapper for the url. Ex. !example',
+        array(
+          '!wrapper' => l(t('Stream wrapper'),
+          'https://drupal.org/project/system_stream_wrapper',
+          array('attributes' => array('target' => '_blank'))),
+          '!example' => STYLED_GOOGLE_MAP_DEFAULT_PIN)
+      ),
+    );
+    $element['map_center'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Centering map'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    // Retrieve all field names from the current entity bundle.
+    $fields = field_info_instances($form['#entity_type'], $form['#bundle']);
+    $center_options = array('' => t('Center automatically'));
+    foreach ($fields as $key => $map_field) {
+      if ($map_field['widget']['type'] == 'geofield_latlon' && $key != $field['field_name']) {
+        $center_options[$key] = $map_field['label'];
+      }
+    }
+    $element['map_center']['center_coordinates'] = array(
+      '#type' => 'select',
+      '#options' => $center_options,
+      '#default_value' => $settings['map_center']['center_coordinates'],
+      '#description' => t('To have map centered on other point than location you need to have another GeoField in your content type structure'),
+    );
+    $element['popup'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Marker popup'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $element['popup']['choice'] = array(
+      '#type' => 'select',
+      '#options' => array(0 => t('None'), 1 => t('Field'), 2 => t('View mode')),
+      '#default_value' => $settings['popup']['choice'],
+      '#id' => 'edit-popup-choice-field',
+    );
+    // Retrieve view mode settings from the current entity bundle.
+    $view_mode_settings = field_view_mode_settings($instance['entity_type'], $form['#bundle']);
+    $view_modes = array();
+    // Loop the and put all available view modes in an array.
+    foreach ($view_mode_settings as $bundle_view_mode => $value) {
+      if ($value['custom_settings'] && ($bundle_view_mode != $view_mode)) {
+        $view_modes[$bundle_view_mode] = $bundle_view_mode;
+      }
+    }
+    $element['popup']['view_mode'] = array(
+      '#type' => 'select',
+      '#options' => $view_modes,
+      '#default_value' => $settings['popup']['view_mode'],
+      '#states' => array(
+        'visible' => array(
+          ':input[id="edit-popup-choice-field"]' => array('value' => 2),
+        ),
+      ),
+    );
+    // Retrieve all field names from the current entity bundle.
+    $fields = array_keys(field_info_instances($form['#entity_type'], $form['#bundle']));
+    $element['popup']['text'] = array(
+      '#type' => 'select',
+      '#options' => array_combine($fields, $fields),
+      '#default_value' => $settings['popup']['text'],
+      '#states' => array(
+        'visible' => array(
+          ':input[id="edit-popup-choice-field"]' => array('value' => 1),
+        ),
+      ),
+    );
+    $element['popup']['label'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Show field label'),
+      '#default_value' => $settings['popup']['label'],
+      '#states' => array(
+        'visible' => array(
+          ':input[id="edit-popup-choice-field"]' => array('value' => 1),
+        ),
+      ),
+    );
+    $element['popup']['shadow_style'] = array(
+      '#type' => 'select',
+      '#title' => t('Shadow style'),
+      '#options' => array(0, 1, 2),
+      '#description' => t('1: shadow behind, 2: shadow below, 0: no shadow'),
+      '#default_value' => $settings['popup']['shadow_style'],
+    );
+    $element['popup']['padding'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Padding'),
+      '#field_suffix' => 'px',
+      '#default_value' => $settings['popup']['padding'],
+    );
+    $element['popup']['border_radius'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Border radius'),
+      '#field_suffix' => 'px',
+      '#default_value' => $settings['popup']['border_radius'],
+    );
+    $element['popup']['border_width'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Border width'),
+      '#field_suffix' => 'px',
+      '#default_value' => $settings['popup']['border_width'],
+    );
+    $element['popup']['border_color'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Border color'),
+      '#field_suffix' => '#hex',
+      '#default_value' => $settings['popup']['border_color'],
+    );
+    $element['popup']['background_color'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Background color'),
+      '#field_suffix' => '#hex',
+      '#default_value' => $settings['popup']['background_color'],
+    );
+    $element['popup']['min_width'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Min width'),
+      '#field_suffix' => 'px (or auto)',
+      '#default_value' => $settings['popup']['min_width'],
+    );
+    $element['popup']['max_width'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Max width'),
+      '#field_suffix' => 'px (or auto)',
+      '#default_value' => $settings['popup']['max_width'],
+    );
+    $element['popup']['min_height'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Min height'),
+      '#field_suffix' => 'px (or auto)',
+      '#default_value' => $settings['popup']['min_height'],
+    );
+    $element['popup']['max_height'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Max height'),
+      '#field_suffix' => 'px (or auto)',
+      '#default_value' => $settings['popup']['max_height'],
+    );
+    $element['popup']['arrow_style'] = array(
+      '#type' => 'select',
+      '#title' => t('Arrow style'),
+      '#options' => array(0, 1, 2),
+      '#description' => t('1: left side visible, 2: right side visible, 0: both sides visible'),
+      '#default_value' => $settings['popup']['arrow_style'],
+    );
+    $element['popup']['arrow_size'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Arrow size'),
+      '#field_suffix' => 'px',
+      '#default_value' => $settings['popup']['arrow_size'],
+    );
+    $element['popup']['arrow_position'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Arrow position'),
+      '#field_suffix' => 'px',
+      '#default_value' => $settings['popup']['arrow_position'],
+    );
+    $element['popup']['disable_auto_pan'] = array(
+      '#type' => 'select',
+      '#title' => t('Auto pan'),
+      '#options' => array(true => t('Yes'), false => t('No')),
+      '#description' => t('Automatically center the pin on click'),
+      '#default_value' => $settings['popup']['disable_auto_pan'],
+    );
+    $element['popup']['hide_close_button'] = array(
+      '#type' => 'select',
+      '#title' => t('Hide close button'),
+      '#options' => array(true => t('Yes'), false => t('No')),
+      '#description' => t('Hide the popup close button'),
+      '#default_value' => $settings['popup']['hide_close_button'],
+    );
+    $element['popup']['disable_animation'] = array(
+      '#type' => 'select',
+      '#title' => t('Disable animation'),
+      '#options' => array(true => t('Yes'), false => t('No')),
+      '#description' => t('Disables the popup animation'),
+      '#default_value' => $settings['popup']['disable_animation'],
+    );
+    $element['popup']['classes']['content_container'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Wrapper class'),
+      '#default_value' => $settings['popup']['classes']['content_container'],
+    );
+    $element['popup']['classes']['background'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Background class'),
+      '#default_value' => $settings['popup']['classes']['background'],
+    );
+    $element['popup']['classes']['arrow'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Arrow class'),
+      '#default_value' => $settings['popup']['classes']['arrow'],
+    );
+    $element['popup']['classes']['arrow_outer'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Arrow outer class'),
+      '#default_value' => $settings['popup']['classes']['arrow_outer'],
+    );
+    $element['popup']['classes']['arrow_inner'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Arrow inner class'),
+      '#default_value' => $settings['popup']['classes']['arrow_inner'],
+    );
+    $element['zoom'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Zoom'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $element['zoom']['default'] = array(
+      '#type' => 'select',
+      '#options' => range(1, 23),
+      '#title' => t('Default zoom level'),
+      '#default_value' => $settings['zoom']['default'],
+      '#description' => t('Should be between the Min and Max zoom level.'),
+      '#required' => TRUE,
+    );
+    $element['zoom']['max'] = array(
+      '#type' => 'select',
+      '#options' => range(1, 23),
+      '#title' => t('Max zoom level'),
+      '#default_value' => $settings['zoom']['max'],
+      '#description' => t('Should be greater then the Min zoom level.'),
+      '#required' => TRUE,
+    );
+    $element['zoom']['min'] = array(
+      '#type' => 'select',
+      '#options' => range(1, 23),
+      '#title' => t('Min zoom level'),
+      '#default_value' => $settings['zoom']['min'],
+      '#description' => t('Should be smaller then the Max zoom level.'),
+      '#required' => TRUE,
+    );
+    $element['maptypecontrol'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Enable Map Type control'),
+      '#default_value' => $settings['maptypecontrol'],
+    );
+    $element['scalecontrol'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Enable scale control'),
+      '#default_value' => $settings['scalecontrol'],
+    );
+    $element['rotatecontrol'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Enable rotate control'),
+      '#default_value' => $settings['rotatecontrol'],
+    );
+    $element['draggable'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Enable dragging'),
+      '#default_value' => $settings['draggable'],
+    );
+    $element['mobile_draggable'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Enable mobile dragging'),
+      '#description' => t('Sometimes when the map covers big part of touch device screen draggable feature can cause inability to scroll the page'),
+      '#default_value' => $settings['mobile_draggable'],
+    );
+    $element['streetviewcontrol'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Enable street view control'),
+      '#default_value' => $settings['streetviewcontrol'],
+    );
+    $element['zoomcontrol'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Enable zoom control'),
+      '#default_value' => $settings['zoomcontrol'],
+    );
+    $element['scrollwheel'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Enable scrollwheel'),
+      '#default_value' => $settings['scrollwheel'],
+    );
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function styled_google_map_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+  $summary = '';
+
+  // Set summary of all settings to be displayed in the entity view mode.
+  if ($display['type'] == 'styled_google_map_map_formatter') {
+    $summary = t('Width: <b>%width</b><br />Height: <b>%height</b>',
+      array('%width' => $settings['width'], '%height' => $settings['height']));
+    if ($settings['style']['style']) {
+      $summary .= t('<br />Map style: <b>Custom</b>');
+    }
+    if ($settings['style']['pin']) {
+      $summary .= t('<br />Pin style: <b>%pin</b>', array('%pin' => $settings['style']['pin']));
+    }
+    $summary .= t('<br />Map type: <b>%maptype</b>', array('%maptype' => $settings['style']['maptype']));
+    if ($settings['style']['pin']) {
+      $summary .= t('<br />Pin location: <b>%pin</b>', array('%pin' => $settings['style']['pin']));
+    }
+    if ($settings['popup']['choice'] == 1) {
+      $summary .= t('<br />Popup shows field <b>%field</b>', array('%field' => $settings['popup']['text']));
+      $readable = array(FALSE => t('without'), TRUE => t('with'));
+      $summary .= t('<b>%label</b> label', array('%label' => $readable[$settings['popup']['label']]));
+    }
+    if ($settings['popup']['choice'] == 2) {
+      $summary .= t('<br />Popup shows view mode <b>%viewmode</b>', array('%viewmode' => $settings['popup']['view_mode']));
+    }
+    $summary .= t('<br />Default zoom: <b>%zoom</b>', array('%zoom' => $settings['zoom']['default']));
+    $summary .= t('<br />Maximum zoom: <b>%maxzoom</b>', array('%maxzoom' => $settings['zoom']['max']));
+    $summary .= t('<br />Minimum zoom: <b>%minzoom</b>', array('%minzoom' => $settings['zoom']['min']));
+  }
+
+  return $summary;
+}
+
+/**
+ * Returns HTML for the styled google map.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - location: The location object including longitude and latitude.
+ *   - display: Display array including formatter settings.
+ *
+ * @ingroup themeable
+ */
+function theme_styled_google_map(array $variables) {
+  global $language;
+  $location = $variables['location'];
+  $display = $variables['display'];
+  $entity = $variables['entity'];
+  $entity_type = $variables['entity_type'];
+  $settings = $display['settings'];
+  $output = array();
+
+  // TODO: Split this function so logic is out of the theming function.
+  if (!empty($location) && !empty($location['geohash'])) {
+    // Get the pin file url.
+    if (isset($settings['style']['pin']) && !empty($settings['style']['pin'])) {
+      $settings['style']['pin'] = file_create_url($settings['style']['pin']);
+    }
+    // Sanitize the output of the style settings.
+    foreach ($settings['style'] as $id => $setting) {
+      $location[$id] = filter_xss($settings['style'][$id]);
+    }
+
+    // Get the label settings.
+    if (isset($entity) && !empty($entity)) {
+      switch ($settings['popup']['choice']) {
+        // Create popup from label.
+        case 1:
+          $settings['popup']['label'] = $settings['popup']['label'] ? 'inline' : 'hidden';
+          $popup_field = field_view_field($entity_type, $entity, $settings['popup']['text'], $display = array('label' => $settings['popup']['label']), $language->language);
+          break;
+
+        // Create popup from view mode.
+        case 2:
+          $popup_field = field_attach_view($entity_type, $entity, $settings['popup']['view_mode'], $language->language);
+          // Render field groups in case it is included in the attached view.
+          if (module_exists('field_group')) {
+            // This is a little hack as we have to pass something to being able
+            // to execute the field groups nesting function.
+            $entity_reference[] = $entity;
+            field_group_fields_nest($popup_field, $entity_reference);
+          }
+          break;
+
+        // Default to empty.
+        default:
+          $popup_field = array();
+      }
+      $location['popup'] = render($popup_field);
+      if ($settings['map_center']['center_coordinates']) {
+        $map_center = field_get_items($entity_type, $entity, $settings['map_center']['center_coordinates']);
+        if ($map_center && isset($map_center[0]['lat']) && isset($map_center[0]['lon'])) {
+          $settings['map_center']['center_coordinates'] = $map_center[0];
+        } else {
+          $settings['map_center']['center_coordinates'] = FALSE;
+        }
+      }
+    }
+    else {
+      // Not an entity object.
+      $location['popup'] = array();
+    }
+
+    $gid = uniqid();
+    drupal_add_js(array('styled_google_map' => array($gid => $gid)), 'setting');
+
+    // Include the Google Maps API.
+    drupal_add_js('//maps.google.com/maps/api/js?sensor=true', array('type' => 'external', 'group' => JS_LIBRARY));
+    // Include the Info Bubble API.
+    drupal_add_js(drupal_get_path('module', 'styled_google_map') . '/lib/infobubble.js');
+    // Include the map location settings.
+    $map_settings['locations'] = array($location);
+    // Include the custom map settings.
+    $map_settings['settings'] = $settings;
+    // Include the unique div id.
+    $map_settings['id'] = 'styled-google-map-' . $gid;
+    drupal_add_js(array('id' . $gid => $map_settings), 'setting');
+
+    // Output a div placeholder for the Styled Google Map.
+    $output['styled_google_map']['#markup'] = '<div style="width:' . check_plain($settings['width']) . ';height:' . check_plain($settings['height']) . ';" id="styled-google-map-' . $gid . '"></div>';
+
+    // Attach the Styled Google Map javascript file.
+    $output['#attached']['js'][] = drupal_get_path('module', 'styled_google_map') . '/styled-google-map.js';
+    // Attach CSS fix, this will prevent the map controls from breaking.
+    $output['#attached']['css'][] = array(
+      'data' => ".gm-style img {max-width: none;}",
+      'type' => 'inline',
+    );
+  }
+
+  return render($output);
+}

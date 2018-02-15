@@ -1,0 +1,54 @@
+.page-news-inner .content-wrapper {
+
+  img {
+    margin-bottom: 15px;
+  }
+
+  .social-block {
+    margin: 25px 0;
+  }
+
+  .text, .sidebar {
+    float: none;
+    width: 100%;
+  }
+
+  .text {
+    margin-bottom: 20px;
+  }
+
+  .image {
+    margin: 20px 0;
+  }
+
+  .sidebar {
+    margin-left: 0;
+    padding-left: 0;
+
+    &:before {
+      display: none;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  }
+
+  .block-title h1 {
+    font-size: 35px;
+  }
+
+  .gallery {
+    margin-bottom: 20px;
+    display: block;
+
+    .flex-direction-nav {
+      display: block;
+    }
+  }
+
+  .thumbnail {
+    display: none;
+  }
+}

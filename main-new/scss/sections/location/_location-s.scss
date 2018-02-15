@@ -1,0 +1,19 @@
+.section-location {
+  border-bottom: none;
+  text-align: center;
+  padding: 20px 0;
+
+  .content-item {
+    width: 100%;
+    max-width: 323px;
+    padding: 20px;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
+}

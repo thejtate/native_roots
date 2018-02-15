@@ -1,0 +1,36 @@
+.section-newsletter {
+ min-height: 0;
+
+  .parallax-bg {
+    background: image-url('bg/bg-3.jpg');
+    @include background-size(cover);
+  }
+
+  .parallax-img {
+    display: none !important;
+  }
+
+  .site-container {
+    padding: 35px 0;
+    min-height: 0;
+
+    &:before {
+      width: 260px;
+      height: 92px;
+      @include background-size(100% auto);
+    }
+
+    & > .contextual-links-region {
+      position: static;
+    }
+  }
+
+  .left-part, .right-part {
+    position: static;
+    @include transform(translate(0, 0));
+  }
+
+  .webform-confirmation {
+    margin-top: 50px;
+  }
+}

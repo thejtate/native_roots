@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="../common/js/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="form-submit.js"></script>
+    <style>
+        .form-sent {
+            display: none;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Demo forms</title>
+</head>
+<body>
+
+<h2>Newsletter form</h2>
+<div class="form form-newsletter">
+    <form action="submit.php" method="post" id="test" class="ajax-submit">
+        <div class="form form-newsletter">
+            <div class="form-item form-type-text">
+                <input type="text" class="form-text" name="first_name" placeholder="FIRST NAME"/>
+            </div>
+            <div class="form-item form-type-text">
+                <input type="text" class="form-text" name="last_name" placeholder="LAST NAME"/>
+            </div>
+            <div class="form-item form-type-text">
+                <input type="email" class="form-text" name="email" placeholder="EMAIL"/>
+            </div>
+            <div class="form-item form-type-radio">
+                <input type="radio" name="type" class="form-radio" value="Medical"/>
+                <label>Medical</label>
+            </div>
+            <div class="form-item form-type-radio">
+                <input checked type="radio" name="type" class="form-radio" value="Recreational"/>
+                <label>Recreational</label>
+            </div>
+            <div class="form-actions">
+                <input type="submit" class="form-submit" value="SIGN-UP"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+<h2>second form</h2>
+<div class="form form-newsletter">
+    <form action="submit.php" class="ajax-submit">
+
+        <div class="form form-newsletter">
+            <div class="form-item form-type-text">
+                <input type="text" class="form-text" name="first_name" placeholder="FIRST NAME"/>
+            </div>
+            <div class="form-item form-type-text">
+                <input type="text" class="form-text" name="last_name" placeholder="LAST NAME"/>
+            </div>
+            <div class="form-item form-type-text">
+                <input type="email" class="form-text" name="email" placeholder="EMAIL"/>
+            </div>
+            <div class="form-actions">
+                <input type="submit" class="form-submit" value="SIGN-UP"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

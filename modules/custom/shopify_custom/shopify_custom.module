@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * shopify_custom
+ */
+ 
+define('SHOPIFY_CUSTOM_URL', 'https://funnelnr.myshopify.com');
+
+/**
+ * Implements hook_shopify_collection_save_alter().
+ */
+function shopify_custom_shopify_collection_save_alter(&$term, &$collection) {
+  $term->field_collection_handle[LANGUAGE_NONE][0]['value'] = $collection['handle'];
+}

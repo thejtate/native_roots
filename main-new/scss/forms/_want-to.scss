@@ -1,0 +1,49 @@
+.form-want-to {
+  margin-top: 45px;
+
+  .form-item {
+    margin: 0 0 10px;
+  }
+
+  .select2-container {
+
+    .select2-selection--single {
+
+      .select2-selection__rendered {
+        background: none;
+        font-size: 68px;
+        font-family: $din-cond-bold;
+        line-height: 1;
+        border: 3px solid $color-b;
+        padding-top: 0;
+        padding-bottom: 0;
+        color: $color-b;
+        padding-right: 45px;
+        text-transform: uppercase;
+        @include transition(all .3s);
+
+        &:hover {
+          opacity: 1;
+          border-color: $color-a;
+        }
+      }
+
+      .select2-selection__arrow b {
+        @include oneline-sprite-box($icons, icon-arrow-style-c);
+        right: 20px;
+      }
+    }
+  }
+
+  .btn-wrap {
+    margin-top: 40px;
+  }
+
+  [data-filter] {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+name = native_map
+description = Native Roots Locations maps
+package = native
+core = 7.x
+version = 7.x-1.x
+
+;files[] =
+;dependencies[] = 

@@ -1,0 +1,13 @@
+diff --git a/handlers/views_handler_area_result.inc b/handlers/views_handler_area_result.inc
+index 86b1849..f192b95 100644
+--- a/handlers/views_handler_area_result.inc
++++ b/handlers/views_handler_area_result.inc
+@@ -88,7 +88,7 @@ class views_handler_area_result extends views_handler_area {
+       $replacements["@$item"] = ${$item};
+     }
+     // Send the output.
+-    if (!empty($total)) {
++    if ($empty || (!$empty && !empty($total))) {
+       $output .= filter_xss_admin(str_replace(array_keys($replacements), array_values($replacements), $format));
+     }
+     return $output;

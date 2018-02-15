@@ -1,0 +1,113 @@
+.form-types {
+  position: relative;
+  z-index: 1;
+  padding: 30px 0 28px 0;
+  @include clearfix();
+
+  &:before {
+    @include pseudo-block($left: 50%, $top: 0, $bottom: 0);
+    width: 4000px;
+    margin-left: -2000px;
+    background: $color;
+    height: 100%;
+    z-index: -1;
+  }
+
+  .form-item {
+    margin: 0 0 0 16px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  label {
+    font-family: $din-cond-regular;
+    font-size: 16px;
+    color: #fff;
+    margin-top: 6px;
+    margin-right: 20px;
+    text-transform: uppercase;
+  }
+
+  .form-item, .form-radios, label, .link, .views-widget, .item-with-desc, .type, .type-item, .desc {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .link, .type, .item-with-desc {
+    margin-left: 20px;
+  }
+
+  .item {
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #909090;
+    border: 1px solid #909090;
+    padding: 1px 4px;
+    margin-left: 2px;
+  }
+
+  .type-item {
+    position: relative;
+    margin-left: 22px;
+    color: #fff;
+
+    &:before {
+      margin-top: -1px;
+      @include pseudo-block($left: 0, $top: 50%);
+      @include translate(0, -50%);
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  .type-medical {
+    padding-left: 20px;
+
+    &:before {
+      @include retina-sprite(icon-medical);
+    }
+  }
+
+  .type-recreational {
+    padding-left: 22px;
+
+    &:before {
+      @include retina-sprite(icon-recreational);
+    }
+  }
+
+  .form-radios label {
+    margin: 0;
+    text-transform: none;
+  }
+
+  .views-widget-per-page {
+    display: none !important;
+  }
+
+  .views-exposed-form {
+    text-align: center;
+
+    .views-widget-filter-term_node_tid_depth,
+    .views-widget-filter-tid {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .views-widget-filter-tid {
+      margin-left: 40px;
+    }
+
+    .type {
+      margin-left: 85px;
+    }
+  }
+
+  .widget-header {
+    display: none;
+  }
+}

@@ -1,0 +1,56 @@
+.page-cannabis-all.page-taxonomy-term-18 .content-wrapper .content-middle .items-wrapper {
+
+  &:first-child {
+
+    &:before {
+      top: 117px;
+    }
+  }
+
+  .item {
+
+    &:before {
+      width: 340px;
+      height: 115px;
+      top: 86px;
+    }
+  }
+}
+
+.page-cannabis-all .content-wrapper {
+
+  .content-middle .items-wrapper {
+    padding-top: 150px;
+    margin: 0 -16px 20px;
+
+    &:first-child {
+      height: 270px;
+      margin-bottom: 0;
+    }
+
+    h3 {
+      font-size: 38px;
+    }
+
+    .item {
+      width: 238px;
+      height: 145px;
+
+      img:not(.icon-desc) {
+        width: 100%;
+      }
+    }
+
+    .titles {
+      margin: 0 0 80px;
+    }
+  }
+
+  .info .img {
+    left: -390px;
+  }
+
+  .info-type-2 {
+    height: 250px;
+  }
+}

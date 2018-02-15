@@ -1,0 +1,137 @@
+.page-news-inner .content-wrapper {
+  background: #fff;
+
+  .clear-block {
+    overflow: hidden;
+    clear: both;
+  }
+
+  img {
+    margin-bottom: 35px;
+    height: auto !important;
+  }
+
+  .sidebar {
+    width: 332px;
+    float: right;
+    padding-left: 30px;
+    position: relative;
+
+    &:before {
+      @include pseudo-block($left: 0, $top: 0);
+      border-left: 2px solid #ebebeb;
+      height: 10000px;
+    }
+
+    h2 {
+      margin-bottom: 40px;
+      color: $color-b;
+      font-family: $din-cond-bold;
+    }
+  }
+
+  .text {
+    float: left;
+    width: 619px;
+    margin-bottom: 40px;
+  }
+
+  .social-block, .image {
+    margin: 40px 0;
+  }
+
+  .gallery, .thumbnail {
+    position: relative;
+
+    img {
+      margin: 0;
+    }
+
+    .flex-direction-nav {
+
+      li {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .flex-prev, .flex-next {
+      @include text-hide();
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      @include transition(opacity .4s);
+
+      &:before {
+        @include pseudo-block($top: 50%);
+        @include oneline-sprite-box($icons, icon-arrow-g);
+        margin-top: -9px;
+      }
+    }
+
+    .flex-prev {
+      left: 0;
+
+      &:before {
+        left: 15px;
+        @include transform(rotate(-180deg));
+      }
+    }
+
+    .flex-next {
+      right: 0;
+
+      &:before {
+        right: 15px;
+      }
+    }
+  }
+
+  .gallery {
+    margin-bottom: 6px;
+
+    .flex-direction-nav, .flex-disabled {
+      display: none;
+    }
+
+    .flex-prev, .flex-next {
+      width: 30%;
+    }
+  }
+
+  .thumbnail {
+    padding: 0 43px;
+    margin-bottom: 26px;
+
+    .slides li {
+      margin-bottom: 12px;
+      position: relative;
+
+      &:before {
+        @include pseudo-block($left: 0, $right: 0, $bottom: -12px);
+        border-bottom: 6px solid $color-a;
+        opacity: 0;
+        visibility: hidden;
+        @include transition(all .4s);
+      }
+
+      &.flex-active-slide:before {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    li {
+
+      img {
+        cursor: pointer;
+      }
+    }
+
+    .flex-prev, .flex-next {
+      width: 36px;
+      bottom: 12px;
+    }
+  }
+}

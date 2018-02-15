@@ -1,0 +1,57 @@
+.page-location .content-wrapper {
+
+  .full-block {
+    display: none;
+  }
+
+  .mobile-img {
+    display: block;
+
+    img {
+      width: 100%;
+      height: auto;
+      max-width: none;
+    }
+  }
+
+  .content-top {
+
+    .text {
+      padding: 20px 5%;
+
+      .link-back {
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+      }
+    }
+
+    .custom-gmap {
+      height: 350px !important;
+    }
+  }
+
+  .content-middle {
+    padding-top: 30px;
+
+    .page-node-40 & {
+      padding-top: 0;
+    }
+  }
+
+  .map {
+    display: none;
+  }
+
+  .full-block {
+    max-height: none;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .or-text {
+    padding-top: 55px;
+  }
+}

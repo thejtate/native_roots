@@ -1,0 +1,56 @@
+.site-header {
+
+  .logo {
+    width: 215px;
+  }
+
+  .nav {
+    left: 215px;
+    right: 210px;
+
+    .menu-wrapper {
+      font-size: 16px;
+
+      & > ul.menu {
+
+        a {
+          padding: 30px 25px;
+
+          @media (min-width: 1400px) {
+            padding: 30px 40px;
+          }
+        }
+
+        ul {
+          font-size: 14px;
+
+          li a {
+            padding: 8px 12px;
+          }
+        }
+      }
+    }
+  }
+
+  .navigation {
+    font-family: $din-cond-bold;
+
+    ul li:last-child a {
+      padding: 45px 26px 16px;
+    }
+
+    .cart-link {
+      position: relative;
+
+      &:before {
+        @include pseudo-block($left: 50%, $top: 16px);
+        @include translate(-50%, 0);
+        @include retina-sprite(icon-cart);
+      }
+    }
+
+    a {
+      padding: 23px 26px;
+    }
+  }
+}

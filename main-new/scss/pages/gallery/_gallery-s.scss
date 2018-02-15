@@ -1,0 +1,19 @@
+.page-gallery .content-wrapper .list li {
+  width: 50%;
+
+  .bg {
+    display: none;
+  }
+
+  .overlay {
+    opacity: 1;
+    position: static;
+  }
+
+//  &:hover {
+//
+//    .field-item img {
+//      @include transform(scale(1));
+//    }
+//  }
+}

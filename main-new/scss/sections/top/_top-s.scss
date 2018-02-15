@@ -1,0 +1,62 @@
+.section-top {
+
+  .media {
+    height: 250px !important;
+
+//    .front & {
+//      height: 350px !important;
+//    }
+  }
+
+  .mobile-top-image {
+    display: block;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: auto;
+      max-width: none;
+
+//      .front & {
+//        width: auto;
+//        height: 350px;
+//        position: relative;
+//        @include transform(translate(-50%, 0));
+//        left: 50%;
+//      }
+    }
+  }
+
+  .parallax-bg {
+    display: none;
+  }
+
+//  .title {
+//
+//    img {
+//      max-width: 280px;
+//      width: 56%;
+//
+//      .page-education &, .page-career & {
+//        max-width: 220px;
+//      }
+//
+//      .front &, .page-awards & {
+//        width: 70%;
+//      }
+//    }
+//  }
+
+  .desc {
+    bottom: 118px;
+
+    p {
+      display: none;
+    }
+  }
+}

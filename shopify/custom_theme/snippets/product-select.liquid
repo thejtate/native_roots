@@ -1,0 +1,25 @@
+{% if collection.products_count > 0 %}
+<label for="productSelect">Known what gear you`re looking for?</label>
+
+  <select name="productSelect" id="productSelect">
+    <option value="none">Select an Gear</option>
+    {% for product in collection.products %}
+      <option value="{{ product.url | within: collection }}">{{ product.title }}</option>
+    {% endfor %}
+  </select>
+{% endif %}
+
+<script>
+  $(function() {
+    var productSelect = $('#productSelect');
+      productSelect.val('none');
+      productSelect.trigger('change');
+      productSelect.bind('change', function() {
+      var val = jQuery(this).val();
+      if(val != 'none') {
+		location.href = val;       
+      }
+     }
+    );
+  });
+</script>

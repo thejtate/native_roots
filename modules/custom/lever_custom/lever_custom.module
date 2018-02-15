@@ -1,0 +1,169 @@
+<?php
+
+/**
+ * @file
+ * lever_custom
+ */
+
+define('LEVER_CUSTOM_CACHE_LIFETIME', 60 * 15);//in seconds
+define('LEVER_CUSTOM_URL', 'https://api.lever.co/v0/postings/nativeroots?group=team&mode=json');
+
+/**
+ * Implements hook_theme().
+ */
+function lever_custom_theme() {
+  $return = array();
+
+  $return['lever_custom_jobs_list'] = array(
+    'variables' => array(
+      'posts' => array(),
+      'categories' => array(),
+    ),
+    'path' => drupal_get_path('module', 'lever_custom') . "/templates",
+    'template' => 'lever-custom-jobs-list'
+  );
+
+  return $return;
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * @param $vars
+ */
+function lever_custom_preprocess_node(&$vars) {
+
+  if ($vars['node']->type == 'careers' && !empty($vars['node']->field_careers_lever_url[LANGUAGE_NONE][0]['url'])) {
+
+    $path = drupal_get_path('module', 'lever_custom');
+    drupal_add_js($path . '/js/lever_custom.js');
+
+    $url = $vars['node']->field_careers_lever_url[LANGUAGE_NONE][0]['url'];
+
+    list($categories, $posts) = lever_custom_get_formatted_data($url);
+
+    $vars['content']['lever_posts'] = array(
+      '#markup' => theme(
+        'lever_custom_jobs_list',
+        array('categories' => $categories, 'posts' => $posts)
+      ),
+    );
+  }
+
+}
+
+/**
+ * Prepare API response to output.
+ *
+ * @param $results API response
+ *
+ * @return array (categories, posts);
+ */
+function lever_custom_jobs_list_preprocess($results) {
+
+  $categories_formatted = array();
+  $posts_formatted = array();
+
+  foreach ($results as $category) {
+    if (!empty($category->title)) {
+      $category_name = _lever_custom_clean_string($category->title);
+      $categories_formatted[$category_name] = $category_name;
+    }
+
+    if (!empty($category->postings) && is_array($category->postings)) {
+      foreach ($category->postings as $post) {
+        $posts_formatted[] = array(
+          'title' => !empty($post->text) ? $post->text : '',
+          'short_description' => text_summary(
+              _lever_custom_null_check($post->description),
+              'full_html',
+              250
+            ),
+          'location' => _lever_custom_get_string($post->categories->location),
+          'commitment' => _lever_custom_get_string(
+            $post->categories->commitment
+          ),
+          'team' => _lever_custom_get_string($post->categories->team),
+          'link' => !empty($post->hostedUrl) ? $post->hostedUrl : '',
+        );
+      }
+    }
+  }
+
+  return array($categories_formatted, $posts_formatted);
+}
+
+/**
+ * Get formatted lever data from api.
+ *
+ * @return array (categories, posts)
+ */
+function lever_custom_get_formatted_data($url) {
+
+  $cache = cache_get('lever_custom:data');
+  if ($cache && REQUEST_TIME < $cache->expire) {
+    return $cache->data;
+  }
+  else {
+    $api_results = lever_custom_get_posts($url);
+    $data = lever_custom_jobs_list_preprocess($api_results);
+    cache_set(
+      'lever_custom:data',
+      $data,
+      'cache',
+      REQUEST_TIME + LEVER_CUSTOM_CACHE_LIFETIME
+    );
+    return $data;
+  }
+}
+
+/**
+ * Request API by url.
+ *
+ * @param $url
+ * @return array|mixed
+ */
+function lever_custom_get_posts($url) {
+  $result = array();
+
+  try {
+    $file = file_get_contents($url);
+    $posts = json_decode($file);
+
+    if (is_array($posts)) {
+      $result = $posts;
+    }
+  } catch (Exception $e) {
+    watchdog(
+      'lever_custom',
+      'Error on receiving lever jobs. ' . $e->getMessage(),
+      array(),
+      WATCHDOG_ERROR
+    );
+  }
+  return $result;
+}
+
+
+function _lever_custom_get_string(&$var) {
+  return _lever_custom_clean_string(_lever_custom_null_check($var));
+}
+
+function _lever_custom_null_check(&$var) {
+
+  if (!empty($var) && is_string($var) && strtolower($var) !== 'null') {
+    return $var;
+  }
+  else {
+    return t('Uncategorized');
+  }
+}
+
+function _lever_custom_clean_string($string) {
+  if (!empty($string) && is_string($string) && strtolower($string) !== 'null') {
+    return preg_replace('/\s+/i', "", $string);
+  }
+  else {
+    return "Uncategorized";
+  }
+}

@@ -1,0 +1,9 @@
+.site-container {
+  position: relative;
+  margin: 0 auto;
+  @include clearfix();
+
+  .site-container {
+    width: 100% !important;
+  }
+}

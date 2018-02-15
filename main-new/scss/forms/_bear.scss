@@ -1,0 +1,34 @@
+.form-bear {
+
+  .form-item {
+    margin-bottom: 8px;
+  }
+
+  .form-actions {
+    margin-bottom: 25px;
+
+    input {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+  }
+
+  input:not(.form-submit) {
+    box-shadow: none;
+    border: 2px solid #3cbe2b;
+    font-style: italic;
+    @include transition(border-color .3s);
+    padding: 8px;
+    font-size: 14px;
+
+    @media (min-width: $width-tablet) {
+      padding: 10px 15px;
+      font-size: 18px;
+    }
+
+    &:focus {
+      border-color: #646464;
+    }
+  }
+}

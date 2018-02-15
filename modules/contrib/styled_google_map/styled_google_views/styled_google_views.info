@@ -1,0 +1,15 @@
+name = Styled Google Views
+description = Styled Google Map views plugin.
+core = 7.x
+dependencies[] = views
+dependencies[] = system_stream_wrapper
+dependencies[] = styled_google_map
+
+files[] = styled_google_map_style_plugin.inc
+
+; Information added by Drupal.org packaging script on 2016-05-12
+version = "7.x-2.0"
+core = "7.x"
+project = "styled_google_map"
+datestamp = "1463067543"
+

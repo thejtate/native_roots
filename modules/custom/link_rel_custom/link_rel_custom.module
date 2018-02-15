@@ -1,0 +1,145 @@
+<?php
+
+/**
+ * @file link_rel_custom.module
+ * TODO: Enter file description here.
+ * TODO: Add pager options.
+ */
+
+/**
+ * Implements hook_views_post_render().
+ */
+function link_rel_custom_views_post_render(&$view, &$output, &$cache) {
+  if ($view->query->pager instanceof views_plugin_pager_full) {
+    $pager = $view->query->pager;
+    $total = $pager->get_pager_total();
+    $path = $view->get_path();
+    // If view is on front page, replace view_path with front.
+    if (drupal_is_front_page() || $path == variable_get('site_frontpage', '')) $path = '<front>';
+
+    $path_args = isset($view->args[0]) ? $view->args[0] : '';
+    if ((arg(0) == 'taxonomy') && (arg(1) == 'term') &&
+      (strpos($path, '%') !== false) && is_numeric($path_args)) {
+      $path = 'taxonomy/term/' . $path_args;
+    }
+
+    // Add one to current, because it starts from 0, but total starts from 0.
+    $current = $pager->get_current_page() + 1;
+    $current_page = $pager->get_current_page();
+
+    // If it is not last page.
+    if ($current < $total) {
+      // Add next tag.
+      link_rel_custom_add_link_tag('next', $current_page + 1, $path);
+    }
+    // If it is not first page.
+    if ($current - 1 > 0) {
+      // Add prev tag.
+      link_rel_custom_add_link_tag('prev', $current_page - 1, $path);
+    }
+
+    // Add canonical, because metatag ignoring paggination.
+    link_rel_custom_add_link_tag('canonical', $current_page, $path);
+    link_rel_custom_add_link_tag('shortlink', $current_page, $path);
+  }
+}
+
+/**
+ * Add link tags to current page html head.
+ */
+function link_rel_custom_add_link_tag($rel = 'next', $page_num = 1, $path) {
+  $allowed_rel = link_rel_custom_get_tags();
+  if (!in_array($rel, $allowed_rel)) {
+    return;
+  }
+  $page_num = (int) $page_num;
+  $path = isset($path) ? $path : $_GET['q'];
+
+  // Get all params, without q, page.
+  $query = array();
+  // $query = pager_get_query_parameters();
+  if ($page_num > 0) {
+    $query['page'] = $page_num;
+  }
+  $href = url($path, array('query' => $query, 'absolute' => TRUE));
+  // Remove trailing slash.
+  $href = rtrim($href, '/');
+
+  $attributes = array(
+    'rel' => $rel,
+    'href' => $href,
+  );
+
+  $element = array(
+    '#tag' => 'link',
+    '#attributes' => $attributes,
+  );
+  $href = $attributes['href'];
+
+  // Also add a HTTP header "Link:".
+  $href = '<' . check_plain($attributes['href']) . '>;';
+  unset($attributes['href']);
+  $element['#attached']['drupal_add_http_header'][] = array('Link', $href . drupal_http_header_attributes($attributes), TRUE);
+
+  drupal_add_html_head($element, 'link_rel_custom_' . $rel);
+};
+
+/**
+ * Implements hook_module_implements_alter().
+ *
+ * Put link_rel_custom_html_head_alter() to the end.
+ */
+function link_rel_custom_module_implements_alter(&$implementations, $hook) {
+  $module_name = 'link_rel_custom';
+  if ($hook == 'html_head_alter') {
+    $group = $implementations [$module_name];
+    unset($implementations [$module_name]);
+    $implementations [$module_name] = $group;
+  }
+}
+
+/**
+ * Implements hook_html_head_alter().
+ *
+ * Hide metatag's tags, which we replace.
+ */
+function link_rel_custom_html_head_alter(&$els) {
+  link_rel_custom_get_disable_competitor_tags($els);
+}
+
+function link_rel_custom_get_tags($prefix = '') {
+//  $tags = array('prev', 'next', 'canonical', 'shortlink');
+  $tags = array('prev', 'next', 'canonical');
+
+  $prefix = strval($prefix);
+  if ($prefix != '') {
+    foreach ($tags as &$tag) {
+      $tag = $prefix . $tag;
+    }
+  }
+  return $tags;
+}
+
+/**
+ * If we found identical tags, which was added by our module,
+ * then disable another tags.
+ *
+ * TODO: Made it customisable.
+ */
+function link_rel_custom_get_disable_competitor_tags(&$els) {
+  $competitor_tags = array(
+    'link_rel_custom_prev' => array('metatag_prev'),
+    'link_rel_custom_next' => array('metatag_next'),
+    'link_rel_custom_canonical' => array('metatag_canonical'),
+    'link_rel_custom_shortlink' => array('metatag_shortlink'),
+  );
+  foreach ($competitor_tags as $link_rel_custom_key => $els_keys) {
+    if (isset($els[$link_rel_custom_key])) {
+      foreach ($els_keys as $key) {
+        if (isset($els[$key])) {
+          $els[$key]['#access'] = false;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,289 @@
+.site-header {
+  line-height: 1.2;
+  font-size: 14px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 5;
+  padding: 0;
+  background: $color;
+  @include box-shadow(0 0 11px -3px #000);
+
+  .btn-nav, .icon-next-menu, .btn-location {
+    display: none;
+  }
+
+  .site-container {
+    width: 100%;
+    height: 125px;
+    background: image-url('bg/bg-page.png');
+
+    &:before {
+      @include pseudo-block($right: 0, $top: 0, $bottom: 0);
+      height: 100%;
+      width: 385px;
+      @include background-image(linear-gradient(right, rgba(42, 42, 42, .8) 0%, rgba(42, 42, 42, .8) 70%, transparent 100%));
+    }
+  }
+
+  .logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    bottom: 0;
+    height: 100%;
+    text-align: center;
+    padding-top: 22px;
+    background: $color;
+
+    .page-node-108 & {
+      background: $color image-url('NR-Colorado-Logo1.png') no-repeat center;
+      @include background-size(112px auto);
+    }
+
+    a {
+      @include transition(opacity .3s);
+
+      &:hover {
+        opacity: .7;
+      }
+    }
+
+    img {
+      max-width: 152px;
+      width: 100%;
+
+      .page-node-108 & {
+        opacity: 0;
+      }
+    }
+  }
+
+  .social-menu, .nav, .navigation {
+    position: absolute;
+    z-index: 1;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+
+    li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .social-menu {
+    top: 13px;
+    right: 26px;
+
+    ul {
+
+      li {
+        margin: 0 0 0 13px;
+        display: inline-block;
+        vertical-align: middle;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+
+      a {
+        display: block;
+        @include transition(opacity .3s);
+
+        &:hover {
+          opacity: .7;
+        }
+      }
+
+      .social-1 a {
+        @include retina-sprite(social-1);
+      }
+
+      .social-2 a {
+        @include retina-sprite(social-2);
+      }
+
+      .social-3 a {
+        @include retina-sprite(social-4);
+      }
+
+      .social-4 a {
+        @include retina-sprite(social-5);
+      }
+
+      .social-5 a {
+        @include retina-sprite(social-6);
+      }
+    }
+  }
+
+  .nav {
+    bottom: 0;
+    height: 78px;
+    background: $color-c;
+
+    .menu-wrapper {
+      text-align: center;
+    }
+
+    .menu-wrapper > ul.menu {
+      display: inline-block;
+      vertical-align: top;
+
+      & > li {
+        text-align: center;
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+
+        &:before {
+          @include pseudo-block($left: -2px, $top: 50%);
+          border-left: 1px solid #cdcdcd;
+          @include translate(0, -50%);
+          height: 36px;
+        }
+
+        &:first-child:before {
+          display: none;
+        }
+
+        html:not(.tablet) & {
+
+          &:hover {
+
+            & > a {
+              color: #fff;
+              background: $color-a;
+            }
+
+            ul {
+              visibility: visible;
+              opacity: 1;
+              @include transform(translate(0, -10px));
+            }
+          }
+        }
+
+        & > a {
+          font-family: $din-cond-bold;
+        }
+      }
+
+      & > li > a {
+
+        &.active, &.active-trail {
+
+          &:before {
+            @include pseudo-block($left: 0, $bottom: 0, $right: 0);
+            border-top: 10px solid $color-a;
+          }
+        }
+      }
+
+      a {
+        height: 78px;
+        display: block;
+        color: #484848;
+        @include transition(all .3s);
+        text-decoration: none;
+      }
+
+      ul {
+        @include transform(translate(0, 0));
+        @include transition(all .3s);
+        border-top: 10px solid $color-a;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        min-width: 160px;
+        background: $color;
+
+        html:not(.tablet) & {
+          visibility: hidden;
+          opacity: 0;
+        }
+
+        .tablet & {
+          display: none;
+        }
+
+        li {
+          display: block;
+          @include transition(all .3s);
+
+          &:hover {
+            background: #3d3d3d;
+
+            a {
+              background: #3d3d3d;
+            }
+          }
+
+          a.active {
+            background: #3d3d3d;
+          }
+        }
+
+        a {
+          border-bottom: 1px solid #3d3d3d;
+          padding: 8px 0;
+          height: auto;
+          color: #fff;
+
+          &:hover {
+            background: transparent;
+          }
+        }
+      }
+    }
+  }
+
+  .back-nav-btn, .navigation-link {
+    display: none !important;
+  }
+
+  .navigation {
+    right: 0;
+    bottom: 0;
+
+    ul {
+      @include clearfix();
+    }
+
+    li {
+      float: left;
+      width: 105px;
+
+      &:first-child a {
+        border-left: none;
+      }
+
+      &:last-child a {
+        border-right: none;
+      }
+    }
+
+    a {
+      background: $color-a;
+      height: 78px;
+      display: block;
+      color: #fff;
+      text-align: center;
+      border-right: 1px solid #5dc769;
+      border-left: 1px solid $color-d;
+      text-decoration: none;
+      @include transition(background .3s);
+
+      &:hover {
+        background: $color-d;
+      }
+    }
+  }
+}

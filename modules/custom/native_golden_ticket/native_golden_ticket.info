@@ -1,0 +1,9 @@
+name = Native Golden Ticket
+description = Implement native golden ticket functionality.
+package = custom
+core = 7.x
+version = 7.x-1.x
+
+;files[] =
+dependencies[] = webform
+dependencies[] = modal_forms

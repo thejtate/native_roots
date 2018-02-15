@@ -1,0 +1,17 @@
+.b-experience {
+  margin-bottom: 30px;
+
+  .items {
+    display: block;
+
+    .item {
+      padding: 20px 0;
+      display: block;
+      border-left: none;
+    }
+  }
+
+  h2 {
+    margin-bottom: 0 !important;
+  }
+}

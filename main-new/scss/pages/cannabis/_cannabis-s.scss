@@ -1,0 +1,54 @@
+.page-cannabis .content-wrapper {
+  min-height: 0;
+
+  .content-top {
+    margin-bottom: 30px;
+    min-height: 0;
+
+    .info {
+
+      .text {
+        width: 100%;
+      }
+
+      .img {
+        -moz-transform: translate(-50%, 0) !important;
+        -ms-transform: translate(-50%, 0) !important;
+        -webkit-transform: translate(-50%, 0) !important;
+        transform: translate(-50%, 0) !important;
+        left: 50%;
+        width: 450px;
+        opacity: 1;
+        position: relative;
+        margin: -50px 0;
+        z-index: -1;
+        top: 0;
+      }
+
+      .price {
+        max-width: 380px;
+        margin-top: 20px;
+
+        .item {
+          padding: 10px 10px;
+
+          &:first-child {
+            padding-left: 10px;
+          }
+        }
+
+        .hd-item {
+          font-size: 14px;
+        }
+
+        .bd-item {
+          font-size: 20px;
+
+          span {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}

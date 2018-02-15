@@ -1,0 +1,277 @@
+.site-header {
+  border-bottom: 6px solid $color-a;
+
+  .site-container {
+    height: 80px;
+    background: none;
+  }
+
+  .logo {
+    right: 0;
+    z-index: 0;
+    padding-top: 9px;
+
+    .page-node-108 & {
+      @include background-size(80px auto);
+    }
+
+    a {
+      padding: 0 10px;
+      display: block;
+      max-width: 128px;
+      margin: 0 auto;
+    }
+  }
+
+  .social-menu, .navigation {
+    display: none;
+  }
+
+  .nav {
+    position: static;
+    height: 100%;
+    background: none;
+
+    .menu-wrapper {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: calc(100% - 70px);
+      overflow: hidden;
+      @include translate(-100%, 0);
+      @include transition(all .4s);
+
+      .mobile-nav-active & {
+        @include translate(0, 0);
+      }
+
+      & > ul.menu {
+        padding: 0;
+        position: static;
+        width: 100%;
+        font-size: 16px;
+        font-family: $din-cond-bold;
+        background: $color-a;
+
+        li {
+          text-align: left;
+          position: static;
+          display: block;
+          border-top: 1px solid #20912d;
+
+          &:first-child {
+            border-top: none;
+          }
+
+          &:hover {
+
+            a {
+              background: transparent;
+            }
+
+            ul {
+              @include transform(translate(0, 0) !important);
+            }
+          }
+
+          &.active-next-level {
+
+            & > a {
+              background: #2a9336;
+            }
+
+            .icon-next-menu:before {
+              @include transform(translate(-50%, -50%) rotate(180deg));
+            }
+
+            & > ul {
+              display: block;
+            }
+          }
+        }
+
+        ul {
+          padding: 0;
+          visibility: visible !important;
+          opacity: 1 !important;
+          background: none;
+          top: 0;
+          display: none;
+          position: static;
+          background: #2a2a2a;
+          border-top-width: 0;
+
+          a {
+            padding: 14px 30px;
+            border-bottom: none;
+            color: $color-a;
+
+            &:hover, &.active, &.active-trail {
+              color: #fff;
+              background: transparent !important;
+            }
+          }
+
+          li:hover {
+            background: transparent;
+          }
+        }
+
+        a {
+          position: relative;
+          height: auto;
+          color: #fff;
+          padding: 14px 40px 14px 15px;
+          @include transition(background .4s, color .4s);
+
+          &:before {
+            display: none !important;
+          }
+
+          &:hover {
+            background: #2a9336 !important;
+          }
+
+          &.active, &.active-trail {
+            color: #fff;
+            background: #2a9336 !important;
+          }
+        }
+      }
+    }
+  }
+
+  .navigation-link {
+    display: block !important;
+
+    &:before {
+      display: none;
+    }
+  }
+
+  .back-nav-btn {
+    margin: 0 -15px;
+    background: #c1c1c1 !important;
+
+    a {
+      padding-left: 45px !important;
+
+      &:after {
+        @include pseudo-block($left: 30px, $top: 50%);
+        @include transform(translate(-50%, -50%) rotate(90deg));
+        @include oneline-sprite-box($icons, icon-arrow-style-b);
+      }
+    }
+  }
+
+  .btn-nav, .btn-location {
+    width: 70px;
+    display: block;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+  }
+
+  .btn-nav {
+    color: #595959;
+    font-size: 20px;
+    padding: 0;
+    font-family: $din-cond-bold;
+    text-transform: uppercase;
+    text-align: center;
+    left: 0;
+    text-decoration: none;
+    background: #2a2a2a;
+
+    .mobile-nav-active & {
+      left: auto;
+      right: 0;
+      z-index: 1;
+    }
+
+    .text {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ico {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      @include translate(-50%, -50%);
+      width: 34px;
+      height: 24px;
+
+      &:before, &:after {
+        @include pseudo-block($left: 5px, $right: 5px);
+        background: #fff;
+        height: 3px;
+      }
+
+      &:before {
+        top: 7px;
+      }
+
+      &:after {
+        bottom: 7px;
+      }
+
+      .mobile-nav-active & {
+
+        &:before {
+          @include transform(rotate(45deg));
+          top: 11px;
+        }
+
+        &:after {
+          @include transform(rotate(-45deg));
+          bottom: 10px;
+        }
+      }
+    }
+  }
+
+  .btn-location {
+    right: 0;
+
+    &:before {
+      @include translate(-50%, -50%);
+      @include pseudo-block($left: 50%, $top: 50%);
+      @include retina-sprite(icon-location-b);
+    }
+  }
+
+  .icon-next-menu {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 40px;
+
+    &:before {
+      @include pseudo-block($left: 50%, $top: 50%);
+      @include transform(translate(-50%, -50%));
+      @include retina-sprite(icon-arrow-style-a-nav);
+      @include transition(transform .4s);
+    }
+  }
+
+  .cart-link {
+    position: relative;
+    padding-left: 49px !important;
+
+    &:after {
+      @include pseudo-block($left: 15px, $top: 50%);
+      @include translate(0, -50%);
+      @include retina-sprite(icon-cart);
+    }
+  }
+}

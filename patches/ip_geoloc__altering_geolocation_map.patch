@@ -1,0 +1,45 @@
+Index: trunk/sites/all/modules/contrib/ip_geoloc/js/ip_geoloc_gmap_multi_loc.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- trunk/sites/all/modules/contrib/ip_geoloc/js/ip_geoloc_gmap_multi_loc.js	(revision 390f46d3e2a0637173aece0e5380ccfb54cfa5fa)
++++ trunk/sites/all/modules/contrib/ip_geoloc/js/ip_geoloc_gmap_multi_loc.js	(revision )
+@@ -10,6 +10,7 @@
+       // As we can have multiple maps on the same page, this is now an array.
+       maps = [];
+       mapBounds = [];
++      var openedInfoWindow = null;
+       var imageExt = '.png';
+ 
+       $(settings, context).each(function() {
+@@ -49,7 +50,8 @@
+         var markerHeight  = settings[m].ip_geoloc_multi_location_marker_height;
+         var markerAnchor  = settings[m].ip_geoloc_multi_location_marker_anchor;
+         var markerColor   = settings[m].ip_geoloc_multi_location_marker_default_color;
+-        
++
++        
+         var defaultPinImage = !markerColor ? null : new google.maps.MarkerImage(
+           markerDirname + '/' + markerColor + imageExt,
+           new google.maps.Size(markerWidth, markerHeight),
+@@ -149,12 +151,16 @@
+       }
+ 
+       function addMarkerBalloon(map, marker, infoText) {
+-        google.maps.event.addListener(marker, 'click', function(event) {
+-          new google.maps.InfoWindow({
++        google.maps.event.addListener(marker, 'mouseover', function(event) {
++            if(openedInfoWindow) {
++                openedInfoWindow.close();
++            }
++          openedInfoWindow = new google.maps.InfoWindow({
+             content: infoText,
+             // See [#1777664].
+             maxWidth: 200
+-          }).open(map, marker);
++          });
++            openedInfoWindow.open(map, marker);
+         });
+       }
+ 

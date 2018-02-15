@@ -1,0 +1,213 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+
+  <!-- Basic page needs ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  {% if settings.favicon_enable %}
+  <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+  {% endif %}
+
+  <!-- Title and description ================================================== -->
+  <title>
+  {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+
+  {% if page_description %}
+  <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <!-- Social meta ================================================== -->
+  {% include 'social-meta-tags' %}
+
+  <!-- Helpers ================================================== -->
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_primary }}">
+
+  <!-- CSS ================================================== -->
+  {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'select2.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'fonts.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'base.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'header.scss.css' | asset_url | stylesheet_tag }}
+
+  {% include 'google-fonts' %}
+
+  <!-- Header hook for plugins ================================================== -->
+  {{ content_for_header }}
+
+  {% include 'oldIE-js' %}
+
+  {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' | script_tag }}
+  {{ 'modernizr.min.js' | asset_url | script_tag }}
+  {{ 'select2.full.js' | asset_url | script_tag }}
+
+  {% comment %}
+    If you store has customer accounts disabled, you can remove the following JS file
+  {% endcomment %}
+  {% if template contains 'customers' %}
+    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+  {% endif %}
+
+</head>
+
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
+
+  <div class="outer-wrapper">
+  
+  {% comment %}
+       {% include 'header-bar' %}
+  {% endcomment %}
+    
+
+    
+  <header class="site-header" role="banner">
+
+
+      {% if settings.nav_below_logo %}
+
+      <div class="logo">
+          {% if template == 'index' %}
+            <h1 class="site-header__logo{% if settings.left_aligned_logo %} large--left{% endif %}" itemscope itemtype="http://schema.org/Organization">
+          {% else %}
+            <div class="h1 site-header__logo{% if settings.left_aligned_logo %} large--left{% endif %}" itemscope itemtype="http://schema.org/Organization">
+          {% endif %}
+            {% if settings.logo_use_image %}
+              <a href="/" class="logo-wrapper" itemprop="url">
+                <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
+              </a>
+            {% else %}
+              <a href="/" itemprop="url">{{ shop.name }}</a>
+            {% endif %}
+          {% if template == 'index' %}
+            </h1>
+          {% else %}
+            </div>
+          {% endif %}
+          {% if settings.header_message != blank %}
+            <p class="header-message large--hide">
+              <small>{{ settings.header_message }}</small>
+            </p>
+          {% endif %}
+      </div>
+      <div class="social-menu">
+		{% include 'social-links' %}
+      </div>
+      <nav class="nav">
+          {% include 'site-nav' %}
+      </nav>
+      <div class="navigation">
+        {% include 'site-nav-secondary' %}
+      </div>
+
+      {% else %}
+
+      <div class="grid--full large--display-table">
+        <div class="grid__item large--one-third large--display-table-cell">
+          {% if template == 'index' %}
+            <h1 class="site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
+          {% else %}
+            <div class="h1 site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
+          {% endif %}
+            {% if settings.logo_use_image %}
+              <a href="/" class="logo-wrapper" itemprop="url">
+                <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
+              </a>
+            {% else %}
+              <a href="/" itemprop="url">{{ shop.name }}</a>
+            {% endif %}
+          {% if template == 'index' %}
+            </h1>
+          {% else %}
+            </div>
+          {% endif %}
+          {% if settings.header_message != blank %}
+            <p class="header-message large--hide">
+              <small>{{ settings.header_message }}</small>
+            </p>
+          {% endif %}
+        </div>
+        <div class="grid__item large--two-thirds large--display-table-cell medium-down--hide">
+          {% include 'site-nav' %}
+        </div>
+      </div>
+
+      {% endif %}
+
+
+  </header>
+
+  <main class="wrapper main-content" role="main">
+    <div class="grid">
+        <div class="grid__item">
+          {{ content_for_layout }}
+        </div>
+    </div>
+  </main>
+
+  <footer class="site-footer small--text-center" role="contentinfo">
+
+    <div class="wrapper">
+
+      <hr class="hr--small hr--clear">
+
+    
+
+    </div>
+
+  </footer>
+
+  {% for i in (1..4) %}
+    {% capture home_section %}home_section_{{ i }}{% endcapture %}
+    {% if settings[home_section] == 'slider' %}
+      {% assign slider_home_enable = true %}
+    {% endif %}
+  {% endfor %}
+
+  {% if slider_home_enable %}
+    {{ 'jquery.flexslider.min.js' | asset_url | script_tag }}
+    {{ 'slider.js' | asset_url | script_tag }}
+  {% endif %}
+
+  {{ 'fastclick.min.js' | asset_url | script_tag }}
+  {{ 'timber.js' | asset_url | script_tag }}
+  {{ 'theme.js' | asset_url | script_tag }}
+
+  {% if template contains 'product' %}
+    {% if settings.product_image_zoom_type == 'lightbox'  %}
+      {{ 'magnific-popup.min.js' | asset_url | script_tag }}
+    {% elsif settings.product_image_zoom_type == 'zoom-in' %}
+      {{ 'jquery.zoom.min.js' | asset_url | script_tag }}
+    {% endif %}
+  {% endif %}
+
+  {% if template contains 'article' or template contains 'product' %}
+    {% if settings.social_sharing_blog or settings.social_sharing_products %}
+      {{ 'social-buttons.js' | asset_url | script_tag }}
+    {% endif %}
+  {% endif %}
+
+    
+    
+  </div>
+  <script>
+  
+    jQuery('select:visible:not(.no-js)').select2({
+    width: 'full',
+    minimumResultsForSearch: Infinity,
+    adaptDropdownCssClass: function (c) {
+      return c;
+    }
+  });
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<?php
+
+/**
+ * @file
+ *
+ * Golden ticket functionality.
+ */
+
+define('WEBFORM_GOLDEN_TICKET_NID', 1512);
+
+require_once drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc';
+
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function native_golden_ticket_preprocess_node(&$vars) {
+  if (isset($vars['node'])) {
+    $node = $vars['node'];
+    try {
+      $node_wrapper = entity_metadata_wrapper('node', $node);
+      $properties = $node_wrapper->getPropertyInfo();
+
+      if (array_key_exists('field_golden_ticket', $properties)) {
+        $field_golden_ticket = $node_wrapper->field_golden_ticket->value();
+        if (!empty($field_golden_ticket)) {
+          $cl = 'link-to-popup ctools-modal-native-golden-ticket-modal-style';
+          $vars['golden_ticket'] = ctools_modal_text_button('', 'modal_forms/nojs/webform/' . WEBFORM_GOLDEN_TICKET_NID, 'ctools-modal-modal-popup-large', $cl);
+
+          $webform_node = node_load(WEBFORM_GOLDEN_TICKET_NID);
+          $modal_theme = 'NativeGoldenTicketModal';
+          if (webform_submission_total_limit_check($webform_node)) {
+            $modal_theme = 'NativeGoldenTicketDoneModal';
+          }
+
+          _native_golden_ticket_init_popup($modal_theme);
+        }
+      }
+    }
+    catch (EntityMetadataWrapperException $exc) {
+      watchdog('native_golden_ticket', 'See ' . __FUNCTION__ . '() <pre>' . $exc->getTraceAsString() . '</pre>', NULL, WATCHDOG_ERROR);
+    }
+  }
+}
+
+/**
+ * Initialize popup.
+ *
+ * @param $modal_theme
+ * @throws \Exception
+ */
+function _native_golden_ticket_init_popup($modal_theme) {
+  ctools_include('ajax');
+  ctools_include('modal');
+  ctools_modal_add_js();
+
+  $native_golden_ticket_style = array(
+    'native-golden-ticket-modal-style' => array(
+      'modalSize' => array(
+        'type' => 'fixed',
+        'width' => 673,
+        'height' => 413,
+        'addWidth' => 0,
+        'addHeight' => 0,
+        'contentRight' => 25,
+        'contentBottom' => 45,
+      ),
+      'modalOptions' => array(
+        'opacity' => .61,
+        'background-color' => '#363636',
+      ),
+      'animation' => 'fadeIn',
+      'modalTheme' => $modal_theme,
+      'throbber' => theme('image', array(
+        'path' => ctools_image_path('ajax-loader.gif', 'native_golden_ticket'),
+        'alt' => t('Loading...'),
+        'title' => t('Loading')
+      )),
+    ),
+  );
+
+  drupal_add_js($native_golden_ticket_style, 'setting');
+  ctools_add_js('native_golden_ticket_popup', 'native_golden_ticket');
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function native_golden_ticket_form_alter(&$form, &$form_state, $form_id) {
+  switch ($form_id) {
+    case 'webform_client_form_' . WEBFORM_GOLDEN_TICKET_NID:
+      if (!webform_submission_total_limit_check($form['#node'])) {
+        $form['#node']->field_webform_description = '';
+        $image = '<div class="img">' . theme('image', array('path' => 'sites/all/themes/native/images/bg/popup-bg.png')) . '</div>';
+        $form['#node']->still_visible = t("<h2>YOU FOUND IT</h2><p>Hard to find, huh? That’s the benefit of Shortys:<br/> Discreet, small, pocket-sized. Now all you need to do is<br/> fill out the fields below and we’ll email you the coupon!</p>") . $image;
+        $form['submitted']['code']['#access'] = FALSE;
+      }
+
+      $form['#validate'][] = 'native_golden_ticket_form_validate';
+      break;
+  }
+}
+
+/**
+ * Golden ticket form validate.
+ *
+ * @param $form
+ * @param $form_state
+ */
+function native_golden_ticket_form_validate($form, &$form_state) {
+  $error_messages = drupal_get_messages();
+  $webform_node = node_load(WEBFORM_GOLDEN_TICKET_NID);
+  $nid = isset($webform_node->nid) ? $webform_node->nid : '';
+  if (webform_submission_total_limit_check($webform_node)) {
+    $form['#node']->field_webform_description = $webform_node->field_webform_description;
+  }
+  else {
+    $code = webform_get_submission_count($nid);
+    if (is_numeric($code)) {
+      $code = (int)$code;
+      $code++;
+      $form_state['values']['submitted']['code'] = 'NR-' . sprintf('%03d', $code);
+    }
+  }
+}
+
+/**
+ * Implements hook_menu_site_status_alter().
+ */
+function native_golden_ticket_menu_site_status_alter(&$menu_site_status, $path) {
+
+  //manually add node view count for golden ticket modal form and anonymous users
+  if($path == 'modal_forms/ajax/webform/' . WEBFORM_GOLDEN_TICKET_NID) {
+    if(function_exists('nodeviewcount_insert_node_view')) {
+      if(user_is_anonymous()) {
+        $webform_node = node_load(WEBFORM_GOLDEN_TICKET_NID);
+        if (webform_submission_total_limit_check($webform_node)) {
+          nodeviewcount_insert_node_view(WEBFORM_GOLDEN_TICKET_NID, 0);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_aggregator_results_table().
+ */
+function native_golden_ticket_preprocess_views_aggregator_results_table(&$vars) {
+    if($vars['view']->name == 'golden_tickets_count_statistics'
+    && !empty($vars['totals']['nid'])) {
+      $vars['totals']['nid'] = t('Total: !nid', array('!nid' => $vars['totals']['nid']));
+    }
+
+}

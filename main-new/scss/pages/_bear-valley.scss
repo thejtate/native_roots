@@ -1,0 +1,162 @@
+.page-bear-valley .content-wrapper {
+  background: #fff;
+
+  .block-title {
+    text-align: center;
+    line-height: 1;
+    margin-bottom: 20px;
+
+    @media (min-width: $width-tablet) {
+      margin-bottom: 40px;
+    }
+
+    @media (min-width: $width-large) {
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      color: #3caf49;
+      margin: 0 0 8px;
+      font-size: 50px;
+
+      @media (min-width: $width-tablet) {
+        font-size: 130px;
+      }
+
+      @media (min-width: $width-large) {
+        font-size: 180px;
+      }
+
+      &:before {
+        display: none;
+      }
+    }
+
+    h3 {
+      color: #3caf49;
+      margin: 0;
+      font-size: 22px;
+
+      span {
+        position: relative;
+
+        &:before {
+          @include oneline-sprite-box($icons, line);
+
+          @media (min-width: $width-tablet) {
+            @include pseudo-block($left: 90px, $top: 92%);
+          }
+
+          @media (min-width: $width-large) {
+            left: 135px;
+          }
+        }
+      }
+
+      @media (min-width: $width-tablet) {
+        font-size: 54px;
+      }
+
+      @media (min-width: $width-large) {
+        font-size: 73px;
+      }
+    }
+  }
+
+  h4 {
+    font-family: $din-cond-bold;
+    color: #646464;
+    line-height: 1;
+    margin: 0 0 15px;
+    font-size: 20px;
+
+    @media (min-width: $width-tablet) {
+      font-size: 30px;
+    }
+
+    @media (min-width: $width-large) {
+      font-size: 36px;
+      margin: 0 0 19px;
+    }
+  }
+
+  h5 {
+    font-family: $din-cond-medium;
+    color: #646464;
+    margin: 0 0 20px;
+    line-height: 1.2;
+    font-size: 16px;
+
+    @media (min-width: $width-tablet) {
+      font-size: 20px;
+    }
+
+    @media (min-width: $width-large) {
+      font-size: 24px;
+    }
+  }
+
+  .left-part, .right-part {
+    margin-bottom: 20px;
+
+    @media (min-width: $width-tablet) {
+      margin-bottom: 40px;
+    }
+
+    @media (min-width: $width-large) {
+      margin-bottom: 60px;
+    }
+  }
+  .right-part {
+
+    @media (min-width: $width-tablet) {
+      width: 320px;
+      float: right;
+      margin-left: 40px;
+    }
+
+    @media (min-width: $width-large) {
+      margin-left: 65px;
+    }
+  }
+
+  .left-part {
+    overflow: hidden;
+  }
+
+  .item {
+    position: relative;
+    border-left: 9px solid #3caf49;
+    padding-left: 11px;
+    font-family: $din-cond-medium;
+    font-size: 14px;
+    margin-bottom: 20px;
+
+    @media (min-width: $width-tablet) {
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    @media (min-width: $width-large) {
+      margin-bottom: 36px;
+    }
+
+    a {
+      font-family: $din-cond-bold;
+    }
+  }
+
+  .bottom-desc {
+    text-align: center;
+    font-family: $din-cond-medium;
+    font-size: 14px;
+
+    @media (min-width: $width-tablet) {
+      font-size: 16px;
+    }
+  }
+
+  .map {
+    text-align: center;
+  }
+}

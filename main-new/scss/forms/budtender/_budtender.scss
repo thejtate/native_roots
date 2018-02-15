@@ -1,0 +1,36 @@
+.form-budtender {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  .select2-container {
+
+    .select2-selection--single {
+
+      .select2-selection__rendered {
+        background: none;
+        font-size: 27px;
+        font-family: $din-cond-bold;
+        border: 2px solid $color-b;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        color: $color-b;
+        text-transform: uppercase;
+        @include transition(all .3s);
+
+        &:hover {
+          opacity: 1;
+          border-color: $color-a;
+        }
+      }
+
+      .select2-selection__arrow b {
+        @include oneline-sprite-box($icons, icon-arrow-style-b);
+      }
+    }
+  }
+
+  select {
+    min-width: 140px;
+  }
+}

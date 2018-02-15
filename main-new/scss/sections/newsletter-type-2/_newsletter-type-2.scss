@@ -1,0 +1,153 @@
+.section-newsletter-type-2 {
+  background: $color;
+  padding: 44px 0;
+  text-align: center;
+  color: #fff;
+  line-height: 1.2;
+  position: relative;
+  z-index: 1;
+
+  &.active {
+
+    .btn-wrap:not(.style-black) {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .left-part {
+      width: 752px;
+    }
+
+    .form-newsletter-type-2 {
+      @include transition-delay(.3s);
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  .site-container {
+    position: relative;
+
+    &.form-sent {
+
+      .left-part {
+
+        &:before {
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+
+      .form-newsletter-type-2 {
+        display: none;
+      }
+    }
+  }
+
+  .left-part, .right-part {
+    @include transition(all .4s);
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .left-part {
+    position: relative;
+
+    &:before {
+      @include pseudo-block($left: 50%, $top: 50%);
+      @include transform(translate(-50%, -50%));
+      background: image-url('bg/title-thank-you-s.png');
+      width: 316px;
+      height: 113px;
+      visibility: hidden;
+      opacity: 0;
+      @include transition(all .4s);
+    }
+  }
+
+  .right-part {
+    text-transform: uppercase;
+
+    a {
+      color: #fff;
+      text-transform: lowercase;
+    }
+  }
+
+  p {
+    margin-bottom: 12px;
+  }
+
+  .btn-wrap:not(.style-black) {
+    margin: 0;
+    padding: 40px 0;
+    @include transition(all .4s);
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .social-menu {
+    margin-bottom: 16px;
+
+    ul {
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding: 0;
+        list-style: none;
+        margin: 0 0 0 8px;
+        display: inline-block;
+        vertical-align: middle;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+
+      a {
+        display: block;
+        @include transition(opacity .3s);
+
+        &:hover {
+          opacity: .7;
+        }
+      }
+
+      .social-1 a {
+        @include retina-sprite(social-1-g);
+      }
+
+      .social-2 a {
+        @include retina-sprite(social-2-g);
+      }
+
+      .social-3 a {
+        @include retina-sprite(social-4-g);
+      }
+
+      .social-4 a {
+        @include retina-sprite(social-5-g);
+      }
+
+      .social-5 a {
+        @include retina-sprite(social-6-g);
+      }
+    }
+  }
+
+  .btn-wrap.style-black {
+    margin: 0;
+  }
+
+  .link {
+
+    a {
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}

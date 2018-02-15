@@ -1,0 +1,18 @@
+.page-downloads .content-wrapper {
+
+  .block-title {
+    margin-bottom: 20px;
+  }
+
+  .content-items {
+    text-align: center;
+
+    h3 {
+      margin-bottom: 10px;
+    }
+  }
+
+  .field-item:not(.mobile-downloads) {
+    display: none;
+  }
+}

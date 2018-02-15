@@ -1,0 +1,70 @@
+.page-contact .content-wrapper {
+  padding: 20px 5%;
+
+  .block-title.title-mobile {
+    padding: 0;
+  }
+
+  .left-part, .right-part {
+    width: 100%;
+    float: none;
+    border: none;
+  }
+
+  .left-part {
+    margin-bottom: 60px;
+  }
+
+  .right-part {
+    padding: 0;
+    margin-bottom: 30px;
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .social-menu {
+
+      ul {
+
+        li {
+          margin: 0 0 0 3px;
+          display: inline-block;
+          vertical-align: middle;
+
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+
+        a {
+
+          &:before {
+            display: none;
+          }
+        }
+
+        .social-1 a {
+          @include retina-sprite(social-1-b-a);
+        }
+
+        .social-2 a {
+          @include retina-sprite(social-2-b-a);
+        }
+
+        .social-3 a {
+          @include retina-sprite(social-4-b-a);
+        }
+
+        .social-4 a {
+          @include retina-sprite(social-5-b-a);
+        }
+      }
+    }
+  }
+
+  .top-text, .text {
+    text-align: center;
+    margin: 0 auto 20px;
+  }
+}

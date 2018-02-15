@@ -1,0 +1,35 @@
+.form-newsletter-type-2 {
+  @include transition(all .3s);
+  visibility: hidden;
+  opacity: 0;
+  left: 0;
+  position: absolute;
+  top: 50%;
+  @include transform(translate(0, -50%));
+
+  .messages {
+    display: none;
+  }
+
+  input:not(.form-submit), textarea {
+    width: 187px;
+  }
+
+  .form-item, .form-actions {
+    margin: 0;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .form-item, .form-actions {
+    margin-left: 20px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  .webform-component-radios {
+    display: none !important;
+  }
+}

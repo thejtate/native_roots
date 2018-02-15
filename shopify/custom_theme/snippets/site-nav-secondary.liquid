@@ -1,0 +1,11 @@
+{% comment %}
+  List out your secondary-menu linklist
+{% endcomment %}
+
+<ul class="menu">
+  {% for link in linklists.secondary-menu.links %}
+      <li {% if link.active %}class="site-nav--active"{% endif %}>
+        <a {% if link.active %}class="site-nav--active"{% endif %} href="{{ link.url }}">{{ link.title }}</a>
+      </li>
+  {% endfor %}
+</ul>

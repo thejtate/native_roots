@@ -1,0 +1,33 @@
+.form-popup {
+  @include clearfix();
+
+  input:not(.form-submit), textarea {
+    border-radius: 3px;
+    padding: 6px 10px;
+    font-style: italic;
+
+    &.error {
+      @include box-shadow(inset 0px 0px 6px -1px red);
+    }
+  }
+
+  .form-item {
+    margin-bottom: 6px !important;
+  }
+
+  .field-first-name, .field-last-name {
+    width: calc(50% - 3px);
+  }
+
+  .field-first-name {
+    float: left;
+  }
+
+  .field-last-name {
+    float: right;
+  }
+
+  .form-actions {
+    margin-top: 12px;
+  }
+}

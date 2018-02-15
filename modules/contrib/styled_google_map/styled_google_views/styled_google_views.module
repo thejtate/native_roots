@@ -1,0 +1,156 @@
+<?php
+
+/**
+ * Implements hook_views_api().
+ */
+function styled_google_views_views_api() {
+  return array('api' => '3.0');
+}
+
+/**
+ * Implements hook_theme().
+ */
+function styled_google_views_theme() {
+  $themes['styled_google_view'] = array(
+    'render element' => 'field',
+    'template' => 'styled_google_view',
+  );
+
+  return $themes;
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * - Preprocess the styled google map view template.
+ */
+function styled_google_views_preprocess_styled_google_view(&$vars) {
+  // if pathauto module exists include the pathauto.inc file to get pathauto_cleanstring function
+  // to have safe strings for pin category
+  if (module_exists('pathauto')) {
+    module_load_include('inc', 'pathauto');
+  }
+  // Do not render anything in the live preview for avoiding errors.
+  if (isset($vars['view']->live_preview) && $vars['view']->live_preview) {
+    return;
+  }
+  drupal_add_js(drupal_get_path('module', 'styled_google_map') . '/styled-google-map.js');
+  // Include the Google Maps API.
+  drupal_add_js('//maps.google.com/maps/api/js?sensor=true', array('type' => 'external', 'group' => JS_LIBRARY));
+  drupal_add_js(drupal_get_path('module', 'styled_google_map') . '/lib/markerclusterer.js');
+  drupal_add_js(drupal_get_path('module', 'styled_google_map') . '/lib/infobubble.js');
+  // Get all geofield locations.
+  $locations = array();
+  foreach ($vars['view']->result as $row) {
+    $location = array();
+    if (isset($vars['options']['data_source']) && !empty($vars['options']['data_source'])) {
+      // Add geofield data.
+      if (isset($row->{'field_' . $vars['options']['data_source']}[0])) {
+        $location = $location + $row->{'field_' . $vars['options']['data_source']}[0]['raw'];
+      } else {
+        break;
+      }
+      // Add pin image url.
+      if (isset($vars['options']['pin_source']) && !empty($vars['options']['pin_source'])) {
+        if (isset($row->{'field_' . $vars['options']['pin_source']}[0])) {
+          $location = $location + array(
+            'pin' => file_create_url($row->{'field_' . $vars['options']['pin_source']}[0]['raw']['uri'])
+          );
+          // Add the active pin image.
+          if (!$vars['options']['styled_google_map_view_active_pin']) {
+              $location = $location + array(
+                'active_pin' => file_create_url($row->{'field_' . $vars['options']['pin_source']}[0]['raw']['uri'])
+              );
+          } else {
+              $location = $location + array(
+                'active_pin' => file_create_url($vars['options']['styled_google_map_view_active_pin'])
+              );
+          }
+        }
+      }
+      // Add pin popup html.
+      if (isset($vars['options']['popup_source']) && !empty($vars['options']['popup_source'])) {
+        $vars['view']->row_index = 0; // TODO: Check why this is necessary.
+        $location = $location + array(
+          'popup' => $vars['view']->field[$vars['options']['popup_source']]->theme($row),
+        );
+      }
+      // Add category.
+      if (isset($vars['options']['category_source']) && !empty($vars['options']['category_source'])) {
+        if (module_exists('pathauto')) {
+          $category = pathauto_cleanstring($vars['view']->field[$vars['options']['category_source']]->theme($row));
+        } else {
+          $category = $vars['view']->field[$vars['options']['category_source']]->theme($row);
+        }
+        $location = $location + array(
+          'category' => $category,
+        );
+      }
+    }
+    if ($location) {
+      $locations[] = $location;
+    }
+  }
+  // Add custom settings.
+  $map_settings = array();
+  $map_settings['styled_google_map'][] = array('styled-google-map');
+  $cluster_pin_image = '';
+  $active_pin_image = '';
+  if ($vars['options']['styled_google_map_view_cluster_pin']) {
+    $cluster_pin_image = file_create_url($vars['options']['styled_google_map_view_cluster_pin']);
+  }
+  //TODO: sanitize all options.
+  $map_settings['idstyled-google-map'] = array(
+    'id' => 'styled-google-map',
+    'locations' => $locations,
+    'settings' => array(
+      'height' => $vars['options']['styled_google_map_view_height'],
+      'width' => $vars['options']['styled_google_map_view_width'],
+      'maptypecontrol' => $vars['options']['styled_google_map_view_maptypecontrol'],
+      'scalecontrol' => $vars['options']['styled_google_map_view_scalecontrol'],
+      'rotatecontrol' => $vars['options']['styled_google_map_view_rotatecontrol'],
+      'draggable' => $vars['options']['styled_google_map_view_draggable'],
+      'mobile_draggable' => $vars['options']['styled_google_map_view_mobile_draggable'],
+      'scrollwheel' => $vars['options']['styled_google_map_view_scrollwheel'],
+      'streetviewcontrol' => $vars['options']['styled_google_map_view_streetviewcontrol'],
+      'style' => array(
+        'maptype' => $vars['options']['styled_google_map_view_maptype'],
+        'style' => $vars['options']['styled_google_map_view_style'],
+        'active_pin' => $active_pin_image,
+        'cluster_pin' => $cluster_pin_image,
+      ),
+      'zoom' => array(
+        'default' => $vars['options']['styled_google_map_view_zoom_default'],
+        'max' => $vars['options']['styled_google_map_view_zoom_max'],
+        'min' => $vars['options']['styled_google_map_view_zoom_min'],
+      ),
+      'zoomcontrol' => $vars['options']['styled_google_map_view_zoomcontrol'],
+      'popup' => array(
+        'disable_animation' => $vars['options']['styled_google_map_view_disable_animation'] ? true : false,
+        'disable_autopan' => $vars['options']['styled_google_map_view_disable_auto_pan'] ? true : false,
+        'hide_close_button' => $vars['options']['styled_google_map_view_hide_close_button'] ? true : false,
+        'shadow_style' => $vars['options']['styled_google_map_view_shadow_style'],
+        'padding' => $vars['options']['styled_google_map_view_padding'],
+        'border_radius' => $vars['options']['styled_google_map_view_border_radius'],
+        'border_width' => $vars['options']['styled_google_map_view_border_width'],
+        'border_color' => $vars['options']['styled_google_map_view_border_color'],
+        'background_color' => $vars['options']['styled_google_map_view_background_color'],
+        'min_width' => $vars['options']['styled_google_map_view_min_width'],
+        'max_width' => $vars['options']['styled_google_map_view_max_width'],
+        'min_height' => $vars['options']['styled_google_map_view_min_height'],
+        'max_height' => $vars['options']['styled_google_map_view_max_height'],
+        'arrow_style' => $vars['options']['styled_google_map_view_arrow_style'],
+        'arrow_size' => $vars['options']['styled_google_map_view_arrow_size'],
+        'arrow_position' => $vars['options']['styled_google_map_view_arrow_position'],
+        'classes' => array(
+          'container' => $vars['options']['styled_google_map_view_content_container_class'],
+          'background' => $vars['options']['styled_google_map_view_background_class'],
+          'arrow' => $vars['options']['styled_google_map_view_arrow_class'],
+          'arrow_outer' => $vars['options']['styled_google_map_view_arrow_outer_class'],
+          'arrow_inner' => $vars['options']['styled_google_map_view_arrow_inner_class'],
+        ),
+      ),
+    ),
+  );
+  drupal_add_js($map_settings, 'setting');
+}

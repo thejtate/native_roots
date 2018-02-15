@@ -1,0 +1,67 @@
+.form-location {
+  margin-bottom: 50px;
+
+  .mobile {
+    display: none;
+  }
+
+  .form-type-select {
+    border-bottom: 1px solid $color-a;
+    padding-bottom: 36px;
+  }
+
+  .form-location-select .form-type-select {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  label {
+    font-size: 18px;
+    font-family: $din-cond-bold;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+
+  .form-radius {
+    margin-bottom: 20px;
+
+    .form-item {
+      margin-left: 30px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+
+    label {
+      font-size: 15px;
+      font-family: $din-cond-regular;
+      text-transform: none;
+    }
+
+    .form-item {
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+
+  input:not(.form-submit), textarea {
+    border: 3px solid $color-a;
+    color: $color-b;
+    padding: 10px 15px;
+    font-size: 18px;
+    font-family: $din-cond-medium;
+    @include input-placeholder($color-b);
+  }
+
+  .select2-container {
+    width: 100%;
+    max-width: 380px;
+
+    .select2-selection--single .select2-selection__rendered {
+      padding: 10px 35px 10px 8px;
+      font-size: 18px;
+    }
+  }
+}

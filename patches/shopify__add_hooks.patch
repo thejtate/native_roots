@@ -1,0 +1,23 @@
+Index: trunk/sites/all/modules/contrib/shopify/shopify.module
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- trunk/sites/all/modules/contrib/shopify/shopify.module	(revision 6d3c1adea79b41dc092d3e340beee3f1f318534a)
++++ trunk/sites/all/modules/contrib/shopify/shopify.module	(revision )
+@@ -723,6 +723,7 @@
+     $date = strtotime($collection['published_at']);
+     $term->shopify_collection_published_at = array('und' => array(array('value' => $date ? $date : 0)));
+   }
++  drupal_alter('shopify_collection_save', $term, $collection);
+   if (taxonomy_term_save($term) && isset($collection['image']['src'])) {
+     // Save the image for this term.
+     shopify_collection_save_image($term, $collection['image']['src']);
+@@ -749,6 +750,7 @@
+     'shopify_collection_id' => array('und' => array(array('value' => $collection['id']))),
+     'shopify_collection_published_at' => array('und' => array(array('value' => $date ? $date : 0))),
+   ));
++  drupal_alter('shopify_collection_save', $term, $collection);
+   if (taxonomy_term_save($term) && isset($collection['image']['src'])) {
+     // Save the image for this term.
+     shopify_collection_save_image($term, $collection['image']['src']);

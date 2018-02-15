@@ -1,0 +1,63 @@
+.page-budtenders {
+
+  &.page-brandon, &.page-emma, &.page-node-758 {
+
+    .content-wrapper .content-top {
+      min-height: 1170px;
+
+      .img {
+        left: 42%;
+
+        img {
+          max-width: 600px;
+        }
+      }
+    }
+  }
+
+  &.page-kaitlyn .content-wrapper .content-top {
+    min-height: 1170px;
+
+    .img {
+      left: 53%;
+
+      img {
+        max-width: 600px;
+      }
+    }
+  }
+
+  &.page-node-1403 .content-wrapper .content-top .img {
+    left: 54%;
+
+    img {
+      max-width: 400px;
+    }
+  }
+
+  .content-wrapper {
+
+    .content-top .img {
+      left: 24%;
+    }
+
+    .content-middle {
+
+      .img {
+        display: none;
+      }
+
+      div.b-player {
+        position: static;
+        @include translate(0, 0);
+        width: 90%;
+        padding: 20px 0;
+        margin: 0 auto;
+
+        h3 {
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+.page-social .content-wrapper {
+  padding: 20px 5% 80px;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  .block-title.title-mobile {
+    padding: 0;
+  }
+
+  .social-menu {
+
+    ul {
+
+      li {
+        margin-left: 3px;
+      }
+
+      a {
+
+        &:before {
+          display: none;
+        }
+      }
+
+      .social-1 a {
+        @include retina-sprite(social-1-b-a);
+      }
+
+      .social-2 a {
+        @include retina-sprite(social-2-b-a);
+      }
+
+      .social-3 a {
+        @include retina-sprite(social-4-b-a);
+      }
+
+      .social-4 a {
+        @include retina-sprite(social-5-b-a);
+      }
+
+      .social-5 a {
+        @include retina-sprite(social-6-b-a);
+      }
+    }
+  }
+}

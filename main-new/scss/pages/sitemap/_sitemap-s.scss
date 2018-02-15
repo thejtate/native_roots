@@ -1,0 +1,27 @@
+.page-sitemap .content-wrapper {
+  padding-bottom: 20px;
+  background: #fff;
+
+  &:before {
+    display: none;
+  }
+
+  .block-title {
+    margin-bottom: 0;
+  }
+
+  .content > .site-map-menu {
+
+    & > li {
+      text-align: center;
+      padding: 0;
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+
+      &:before {
+        display: none;
+      }
+    }
+  }
+}

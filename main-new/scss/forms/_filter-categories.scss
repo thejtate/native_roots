@@ -1,0 +1,47 @@
+.form-filter-categories {
+  color: #fff;
+
+  .form-item {
+    margin: 0;
+  }
+
+  .select2-container {
+    text-transform: none;
+    font-size: 18px;
+    display: block;
+
+    &.select2-container--open .select2-selection span.select2-selection__rendered:before {
+      border-top: none;
+      border-bottom: 5px solid #fff;
+    }
+  }
+
+  .select2-selection {
+    background: $color-b;
+    text-align: center;
+    padding: 18px 25px 12px;
+
+    span.select2-selection__rendered {
+      display: inline-block;
+      position: relative;
+      padding: 0 15px;
+      background: none;
+
+      &:before {
+        @include pseudo-block($right: 0, $top: 50%);
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #fff;
+        @include transform(translate(0, -50%));
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .select2-selection__arrow {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,72 @@
+<?php
+
+/**
+ * @file
+ * native_location
+ */
+
+define('NATIVE_MAP_GOOGLE_MAPS', 'https://maps.googleapis.com/maps/api/js?libraries=places');
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function native_map_preprocess_views_view(&$vars) {
+
+  $view = $vars['view'];
+  if ($view->name == 'locations_map_sources' && !empty($view->result) && $view->current_display == 'attachment_1') {
+
+
+    $map_settings = array(
+      'marker_img' => url(drupal_get_path('module', 'native_map') . '/markers/icon2x-marker.png', array('absolute' => TRUE)),
+      'marker_big_img' => url(drupal_get_path('module', 'native_map') . '/markers/icon-marker-a.png', array('absolute' => TRUE)),
+    );
+
+    $map_settings['locations'] = array();
+
+    $vars['locations'] = array();
+
+    foreach ($view->result as $delta => $item) {
+
+      $location = array(
+        'lat' => $item->field_field_loc_location[0]['raw']['lat'],
+        'lon' => $item->field_field_loc_location[0]['raw']['lon'],
+        'nid' => $item->nid,
+        'types' => array(),
+        'name' => $item->field_field_loc_select_title[0]['raw']['value'],
+        'address' =>  render($item->field_field_loc_address[0]['rendered']),
+        'phone' => $item->field_field_loc_phone[0]['raw']['value'],
+        'open' => check_plain($item->field_field_loc_open[0]['raw']['value']),
+        'url' => url('node/' . $item->nid)
+      );
+
+      if(!empty($item->field_field_loc_medical_menu[0]['raw']['target_id'])) {
+        $location['types']['medicinal'] = array('url' => url('node/' . $item->nid));
+      }
+      if(!empty($item->field_field_loc_recreational_menu[0]['raw']['target_id'])) {
+        $location['types']['recreational'] = array('url' => url('node/' . $item->nid));
+      }
+
+
+      $map_settings['locations'][] = $location;
+
+      $vars['locations'][] = $item->field_field_loc_select_title[0]['raw']['value'];
+    }
+
+    drupal_add_js(NATIVE_MAP_GOOGLE_MAPS, array('group' => JS_LIBRARY));
+
+    drupal_add_js(array('native_map' => $map_settings), 'setting');
+    drupal_add_js(drupal_get_path('module', 'native_map') . '/js/native_map_style.js');
+    drupal_add_js(drupal_get_path('module', 'native_map') . '/js/native_map.js', array('scope' => 'footer'));
+  }
+
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function native_map_preprocess_node(&$vars) {
+
+  if($vars['node']->type == 'location_landing') {
+    $vars['map_view'] = views_embed_view('locations_map_sources', 'attachment_1');
+  }
+}

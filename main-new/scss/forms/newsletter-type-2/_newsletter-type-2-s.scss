@@ -1,0 +1,20 @@
+.form-newsletter-type-2 {
+  position: static;
+  visibility: visible;
+  opacity: 1;
+  margin-bottom: 20px;
+  @include transform(translate(0, 0));
+
+  input:not(.form-submit), textarea {
+    width: 100%;
+  }
+
+  .form-item, .form-actions {
+    margin-left: 0;
+  }
+
+  .form-item {
+    display: block;
+    margin-bottom: 20px;
+  }
+}

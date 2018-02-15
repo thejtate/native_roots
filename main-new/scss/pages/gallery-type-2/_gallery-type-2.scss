@@ -1,0 +1,124 @@
+.page-gallery-type-2 .content-wrapper {
+
+  .media-youtube-video {
+    max-width: 640px;
+    margin: 0 auto 20px;
+
+    .iframe-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+    }
+
+    iframe {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .list {
+    @include backface-visibility(hidden);
+    margin-bottom: 40px;
+
+    ul {
+      @include clearfix();
+    }
+
+    ul, li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      margin: 4px;
+      float: left;
+      height: 90px;
+      width: 180px;
+      position: relative;
+
+      .gallery-edit, .gallery-delete {
+        position: absolute;
+        top: 5px;
+        z-index: 105;
+      }
+
+      .gallery-edit {
+        left: 0;
+      }
+
+      .gallery-delete {
+        right: 5px;
+      }
+    }
+
+    a, .clip {
+      display: block;
+    }
+
+    a:hover .clip {
+      @include transform(scale(1.1));
+      @include backface-visibility(hidden);
+      z-index: 102;
+      position: relative;
+    }
+
+    .clip {
+      height: 90px;
+      width: 180px;
+      overflow: hidden;
+      @include transition(transform .3s);
+      @include transform(scale(1));
+    }
+  }
+
+  h3 {
+    color: $color-b;
+    font-family: $din-cond-medium;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+
+  .pager {
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: 0;
+      margin: 0 0 0 6px;
+      color: #343434;
+      font-size: 16px;
+      display: inline-block;
+      vertical-align: middle;
+      width: 20px;
+      text-align: center;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      a {
+        display: block;
+        @include transition(color .3s);
+
+        &:hover {
+          color: #343434;
+        }
+      }
+    }
+
+    .pager-previous, .pager-next {
+      font-size: 20px;
+      font-family: $din-cond-bold;
+
+      a {
+        margin-bottom: 2px;
+      }
+    }
+  }
+}

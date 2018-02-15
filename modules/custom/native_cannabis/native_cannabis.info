@@ -1,0 +1,4 @@
+name = Native roots Cannabis.
+description = Implement native roots Cannabis functionality.
+core = 7.x
+package = custom

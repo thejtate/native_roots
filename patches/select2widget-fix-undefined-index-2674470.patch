@@ -1,0 +1,12 @@
+diff --git a/web/sites/all/modules/contrib/select2widget/select2widget.reference.inc b/web/sites/all/modules/contrib/select2widget/select2widget.reference.inc
+index e1e8f7f..df450ff 100644
+--- a/web/sites/all/modules/contrib/select2widget/select2widget.reference.inc
++++ b/web/sites/all/modules/contrib/select2widget/select2widget.reference.inc
+@@ -73,6 +73,7 @@ function _select2widget_options_properties($type, $multiple, $required, $has_val
+     'strip_tags' => FALSE,
+     'empty_option' => FALSE,
+     'optgroups' => FALSE,
++    'strip_tags_and_unescape' => FALSE,
+   );
+ 
+   $properties = array();

@@ -1,0 +1,83 @@
+.page-career .content-wrapper {
+
+  .item {
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+  }
+
+  .content-top {
+
+    .items {
+      text-align: center;
+    }
+
+    .item {
+      width: 480px;
+      margin: 0 5px 48px;
+      background: #fff;
+
+      &:nth-child(even) {
+        margin-right: 0;
+      }
+
+      &:nth-child(odd) {
+        margin-left: 0;
+      }
+
+      h2 {
+        line-height: 1;
+        font-family: $din-cond-bold;
+      }
+
+      .text {
+        padding: 30px 40px;
+      }
+    }
+  }
+
+  .content-middle {
+    padding-top: 60px;
+    position: relative;
+    z-index: 1;
+
+    &:before {
+      @include pseudo-block($left: 50%, $top: 0, $bottom: -62px);
+      background: #fff;
+      width: 4000px;
+      z-index: -1;
+      margin-left: -2000px;
+    }
+
+    .control {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .item {
+      width: 400px;
+      margin: 0 40px 80px;
+    }
+
+    h4 {
+      text-transform: none;
+      font-size: 24px;
+      font-family: $din-cond-regular;
+
+      a {
+        text-decoration: none;
+        color: $color-b;
+        @include transition(color .3s);
+
+        &:hover {
+          color: $color-a;
+        }
+      }
+    }
+
+    .tags {
+      font-size: 12px;
+      color: #999;
+    }
+  }
+}

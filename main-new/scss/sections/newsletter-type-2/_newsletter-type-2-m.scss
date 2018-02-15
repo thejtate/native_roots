@@ -1,0 +1,16 @@
+.section-newsletter-type-2 {
+
+  .btn-wrap:not(.style-black) {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .form-newsletter-type-2 {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .webform-confirmation {
+    margin-left: 196px;
+  }
+}

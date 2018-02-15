@@ -1,0 +1,37 @@
+.page-awards {
+
+  .content-wrapper {
+    background: #fff;
+  }
+
+  .content-top {
+    display: none;
+  }
+
+  .content-middle {
+    padding-top: 30px;
+  }
+
+  .items-wrapper {
+    margin-bottom: 0;
+
+    &:before {
+      display: none;
+    }
+
+    .item {
+      margin: 0 0 30px;
+      height: auto;
+      width: 100%;
+    }
+
+    .img {
+      height: auto;
+
+      img {
+        position: static;
+        @include transform(translate(0, 0));
+      }
+    }
+  }
+}

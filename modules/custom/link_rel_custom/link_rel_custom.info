@@ -1,0 +1,4 @@
+name = Link Rel Custom
+description = Add <link rel="canonical,shortlink,next,prev"> when using full pager in views.
+dependencies[] = views
+core = 7.x

@@ -1,0 +1,18 @@
+.page-sitemap .content-wrapper {
+  padding-bottom: 200px;
+
+  &:before {
+    bottom: 100px;
+  }
+
+  .block-title {
+    margin-bottom: 40px;
+  }
+
+  .content > .site-map-menu {
+
+    & > li {
+      padding: 0 17px;
+    }
+  }
+}

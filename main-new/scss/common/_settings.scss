@@ -1,0 +1,25 @@
+$icons: sprite-map('icons/*.png', $spacing: 8px, $layout: 'smart');
+$icons2: sprite-map("icons2x/*.png", $layout: smart);
+
+$experimental-support-for-svg: true;
+$experimental-support-for-opera: false;
+
+//width
+$width-large: 1201px;
+$width: 981px;
+$width-tablet: 768px;
+$width-mobile: 480px;
+
+//fonts
+$din-cond-regular: din-cond-regular;
+$din-cond-bold: din-cond-bold;
+$din-cond-medium: din-cond-medium;
+$nickainley: nickainley;
+$fontawesome: fontawesome;
+
+//colors
+$color: #2a2a2a;
+$color-a: #3caf49;
+$color-b: #676767;
+$color-c: #ebebeb;
+$color-d: #1d8529;

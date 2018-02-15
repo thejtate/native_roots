@@ -1,0 +1,281 @@
+.page-cannabis-all.page-taxonomy-term-18 .content-wrapper .content-middle .items-wrapper {
+
+  &:before {
+    z-index: -1;
+    @include pseudo-block($left: 50%, $top: 172px);
+    width: 1221px;
+    height: 287px;
+    @include transform(translate(-50%, 0));
+    background: image-url('bg/bg-cannabis-a.jpg');
+    @include background-size(100% auto);
+  }
+
+  .item:before {
+    @include transform(translate(-50%, 0));
+    @include pseudo-block($left: 50%, $top: 46px);
+    background: image-url('bg/shadow.png');
+    width: 482px;
+    height: 164px;
+    z-index: -1;
+    @include background-size(100% auto);
+    opacity: .3;
+  }
+}
+
+.page-cannabis-all .content-wrapper {
+
+  .content-top {
+    @include clearfix();
+
+    .text {
+      width: 400px;
+    }
+  }
+
+  .info {
+    padding: 55px 0;
+    width: 490px;
+    position: relative;
+    z-index: 1;
+
+    &:before {
+      @include pseudo-block($left: 50%, $top: 0, $bottom: 0);
+      @include background-image(linear-gradient(top, #ffffff 0%, #f0f0f0 100%));
+      z-index: -1;
+      width: 4000px;
+      margin-left: -2000px;
+    }
+
+    .img {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -370px;
+      overflow: hidden;
+      width: 1897px;
+      z-index: -1;
+
+      img {
+        position: absolute;
+        top: 50%;
+        @include transform(translate(0, -50%));
+        left: 0;
+        max-width: none;
+        height: 100%;
+        width: auto;
+      }
+    }
+  }
+
+  .info-type-2 {
+    height: 330px;
+
+    @media (min-width: 2540px) {
+      height: 500px;
+    }
+
+    @media (min-width: 3800px) {
+      height: 660px;
+    }
+
+    img {
+      left: 50%;
+      height: 100%;
+      width: auto;
+      position: absolute;
+      @include transform(translate(-50%, 0));
+      max-width: none;
+    }
+
+    .site-container {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      bottom: 14%;
+      padding: 0 20px;
+      max-width: 780px;
+
+      .btn-wrap {
+        text-align: left;
+      }
+    }
+  }
+
+  .content-middle {
+    position: relative;
+    padding: 62px 0 0;
+    z-index: 1;
+    @include clearfix();
+
+    &:before {
+      @include pseudo-block($left: 50%, $top: 0, $bottom: -62px);
+      background: #fff;
+      width: 4000px;
+      z-index: -1;
+      border-top: 1px solid #aeaeae;
+      margin-left: -2000px;
+    }
+
+    .sidebar {
+      float: left;
+      width: 241px;
+      margin-right: 58px;
+
+      h5 {
+        border-bottom: 1px solid #d7d7d7;
+      }
+
+      .sidebar-item {
+        margin-bottom: 35px;
+      }
+    }
+
+    .results {
+      overflow: hidden;
+      text-align: center;
+
+      span {
+        position: relative;
+        background: #fff;
+        padding: 0 9px;
+
+        &:before {
+          @include pseudo-block($left: 50%, $top: 50%);
+          border-bottom: 1px solid $color-a;
+          width: 2000px;
+          @include transform(translate(-50%, -50%));
+          z-index: -1;
+        }
+      }
+    }
+
+    .items-wrapper {
+      text-align: center;
+      margin: 0 -16px 70px;
+      position: relative;
+      height: 323px;
+      z-index: 1;
+      padding-top: 125px;
+      @include backface-visibility(hidden);
+
+      &:first-child {
+        padding-top: 85px;
+        margin-bottom: 24px;
+
+        &:before {
+          top: 126px;
+        }
+      }
+
+      .item {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 5px;
+        width: 324px;
+        height: 191px;
+        position: relative;
+        @include backface-visibility(hidden);
+
+        img:not(.icon-desc) {
+          width: 82%;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          @include transform(scale(.95) translate(-50%, -50%));
+          @include transition(transform .3s);
+        }
+
+        .icon-desc {
+          vertical-align: middle;
+          margin-bottom: 3px;
+        }
+      }
+
+      .desc {
+
+        .desc-item {
+          text-transform: uppercase;
+          font-size: 12px;
+          color: #909090;
+          padding: 1px;
+
+          &:not(.item-img) {
+            border: 1px solid #909090;
+            padding: 1px 4px;
+          }
+        }
+
+        .item-img:not(.item-img) {
+          padding-bottom: 3px;
+        }
+      }
+
+      .desc-2 {
+        display: table;
+        margin: 4px auto 0;
+        border: 1px solid $color-a;
+        line-height: 1.4;
+
+        .col {
+          display: table-cell;
+          padding: 0 5px;
+
+          &:last-child {
+            padding: 0 3px;
+            background: $color-a;
+          }
+        }
+
+        .icon-desc {
+          padding: 0 2px;
+          margin-bottom: 2px;
+        }
+      }
+
+      .titles {
+        @include transform(translate(0, 50%));
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        margin: 0 0 80px;
+      }
+
+      h3 {
+        margin-bottom: 0;
+        color: $color-b;
+        font-size: 38px;
+        font-family: $din-cond-bold;
+        line-height: 1;
+        @include transition(color .3s);
+
+        a {
+          color: $color-b;
+          text-decoration: none;
+        }
+      }
+
+      h4 {
+        font-size: 16px;
+        text-transform: none;
+        color: #626262;
+      }
+
+      a {
+        text-decoration: none;
+
+        &:hover {
+
+          h3 {
+            color: $color-a;
+          }
+
+          img:not(.icon-desc) {
+            @include transform(scale(1) translate(-50%, -50%));
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+.section-text {
+  width: $width-tablet - 40px;
+
+  &.section-right, &.section-left {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  .col-item {
+    width: 100% !important;
+    background: none !important;
+  }
+
+  .link {
+    left: 50%;
+    @include transform(translate(-50%, -50%));
+  }
+
+  .info-wrapper {
+    display: none;
+  }
+}
+
+body.front .section-text {
+
+}
+
+body:not(.front) .section-text {
+
+  .col-1, .col-3 {
+    display: none;
+    overflow: hidden;
+    height: 280px;
+  }
+}

@@ -1,0 +1,64 @@
+.site-header {
+
+  .logo {
+    width: 160px;
+  }
+
+  .nav {
+    left: 160px;
+    right: 160px;
+
+    .menu-wrapper ul.menu {
+
+      a {
+        padding: 32px 10px;
+
+        @media (min-width: 900px) {
+          padding: 32px 20px;
+        }
+      }
+
+      ul li a {
+        padding: 8px;
+      }
+
+      li.active-next-level {
+
+        & > a {
+          color: #fff;
+          background: $color-a;
+        }
+
+        & > ul {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .navigation {
+    font-family: $din-cond-bold;
+
+    li {
+      width: 80px;
+    }
+
+    ul li:last-child a {
+      padding: 45px 18px 16px;
+    }
+
+    .cart-link {
+      position: relative;
+
+      &:before {
+        @include pseudo-block($left: 50%, $top: 16px);
+        @include translate(-50%, 0);
+        @include retina-sprite(icon-cart);
+      }
+    }
+
+    a {
+      padding: 23px 18px;
+    }
+  }
+}

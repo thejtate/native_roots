@@ -1,0 +1,38 @@
+.form-appointment {
+  width: 230px;
+
+  .form-item, .link {
+    float: left;
+    width: 50%;
+    margin-bottom: 0;
+  }
+
+  .link {
+    display: block;
+    font-family: $din-cond-bold;
+    text-decoration: none;
+    line-height: 1.2;
+  }
+
+  input[type=radio]:checked + label, .link.active {
+    background: $color-a;
+    color: #fff;
+  }
+
+  label, .link {
+    font-size: 19px;
+    text-transform: uppercase;
+    text-align: center;
+    color: $color-a;
+    padding: 2px;
+    border: 2px solid $color-a;
+  }
+
+  label {
+    padding-left: 0 !important;
+
+    &:before {
+      display: none !important;
+    }
+  }
+}

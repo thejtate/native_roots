@@ -1,0 +1,43 @@
+.page-location {
+
+  .content-wrapper {
+
+    .content-top {
+
+      .left-part, .map {
+        float: left;
+        width: 50%;
+      }
+
+      .left-part {
+        width: calc(50% - 65px);
+        background: #fff;
+      }
+
+      .map {
+        width: calc(50% + 65px);
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+
+      .text {
+        float: right;
+        width: 425px;
+        padding: 45px 45px 65px 0;
+      }
+
+      .custom-gmap {
+        height: 100% !important;
+      }
+    }
+  }
+
+  .or-text {
+
+    span:before {
+      @include transform(translate(0, -50%) rotate(0deg));
+    }
+  }
+}

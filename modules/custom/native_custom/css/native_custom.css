@@ -1,0 +1,11 @@
+.slicknav_menu ul.slicknav_nav li.admin-menu-icon {
+    display: none;
+}
+
+.slicknav_menu ul.slicknav_nav > li {
+    display: none;
+}
+
+.slicknav_menu ul.slicknav_nav > li.admin-menu-toolbar-category {
+    display: block;
+}

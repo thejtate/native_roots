@@ -1,0 +1,29 @@
+.section-newsletter-type-2 {
+  padding: 25px 0;
+
+  &.active .left-part {
+    width: 100%;
+  }
+
+  .left-part {
+    min-height: 100px;
+
+    &:before {
+      width: 260px;
+      height: 92px;
+      @include background-size(100% auto);
+    }
+  }
+
+  .btn-wrap:not(.style-black) {
+    display: none;
+  }
+
+  .form-actions {
+    float: none !important;
+  }
+
+  .btn-wrap.style-black {
+    display: none;
+  }
+}

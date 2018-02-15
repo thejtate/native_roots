@@ -1,0 +1,36 @@
+.page-awards {
+
+  .content-top .logo {
+    width: 232px;
+  }
+
+  .content-middle {
+    padding-top: 70px;
+  }
+
+  .items-wrapper {
+    margin-bottom: 20px;
+
+    &:before {
+      bottom: -156px;
+    }
+
+    .item {
+      height: 350px;
+      width: 235px;
+      margin-left: 7px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+
+    .img {
+      height: 240px;
+
+      img {
+        max-width: 80%;
+      }
+    }
+  }
+}

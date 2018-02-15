@@ -1,0 +1,80 @@
+.content-wrapper {
+
+  .top-controls, .bottom-controls {
+
+    .item-list {
+      float: none;
+      text-align: center;
+
+      .pager li {
+        margin: 0 0 0 5px;
+
+        &.pager-current {
+          margin-left: 10px;
+          margin-right: 5px;
+        }
+      }
+
+      a {
+        padding: 0 5px;
+      }
+    }
+  }
+
+  .top-controls {
+    margin-bottom: 20px;
+  }
+
+  .bottom-controls {
+    margin-top: 50px;
+  }
+
+  .link-back a {
+    padding: 8px 12px 8px 35px;
+  }
+
+  .items-list {
+    text-align: center;
+    margin: 0;
+    height: auto !important;
+
+    .item {
+      text-align: left;
+      width: 92%;
+      margin: 0 4% 36px;
+      max-width: 300px;
+      position: static !important;
+    }
+  }
+}
+
+#modalContent {
+  top: 50% !important;
+  left: 50% !important;
+  @include translate(-50%, -50%);
+  width: 90%;
+  position: fixed !important;
+}
+
+div.modal {
+  width: 100% !important;
+  height: auto !important;
+  background-image: none;
+
+  form, .webform-confirmation {
+    padding: 30px 20px;
+  }
+
+  .webform-confirmation {
+    position: static;
+    @include transform(translate(0, 0));
+  }
+
+  .img {
+    display: none;
+  }
+
+  h2 {
+    font-size: 46px;
+  }
+}

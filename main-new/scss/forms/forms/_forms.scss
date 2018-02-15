@@ -1,0 +1,135 @@
+input, select, textarea {
+  @include appearance(none);
+  @include box-shadow(none);
+  @include border-radius(0);
+}
+
+.form {
+
+  .form-item, .form-actions {
+    margin: 0 0 30px;
+  }
+
+  label {
+    font-weight: normal;
+    font-family: $din-cond-bold;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+  }
+
+  input:not(.form-submit), textarea {
+    background: #fff;
+    border: none;
+    width: 100%;
+    color: $color-b;
+    @include input-placeholder($color-b);
+    padding: 10px 15px;
+    font-family: $din-cond-regular;
+    @include box-shadow(2px 2px 6px -3px #676767);
+
+    &.error {
+      border: none;
+      @include box-shadow(2px 2px 6px -3px red);
+    }
+  }
+
+  .form-type-radio, .form-type-checkbox {
+    margin-bottom: 13px;
+    position: relative;
+    font-family: $din-cond-bold;
+    text-transform: uppercase;
+    line-height: 1.4;
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      opacity: 0;
+      visibility: hidden;
+      position: absolute;
+      z-index: -1;
+
+      &:checked + label:before {
+        background: $color-a;
+      }
+
+      &.error + label:before {
+        background: red;
+        border-color: red;
+      }
+    }
+
+    input[type="checkbox"] + label,
+    input[type="radio"] + label {
+      cursor: pointer;
+      position: relative;
+      padding-left: 32px;
+      line-height: 1.2;
+
+      &:before {
+        @include pseudo-block($left: 0, $right: 0);
+        background: transparent;
+        width: 18px;
+        height: 18px;
+        border: 2px solid $color-a;
+      }
+    }
+  }
+
+  .views-exposed-widgets {
+    margin: 0;
+  }
+
+  .views-exposed-form .views-exposed-widget {
+    float: none;
+    padding: 0;
+  }
+}
+
+.form-newsletter, .form-newsletter-type-2 {
+
+  input:not(.form-submit), textarea {
+    background: none;
+    color: #fff;
+    font-family: $din-cond-bold;
+    font-size: 18px;
+    @include input-placeholder(#fff);
+    border-bottom: 1px solid #fff;
+    padding: 5px 0;
+    @include box-shadow(none);
+
+    &.error {
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      border-bottom: 1px solid red;
+      @include box-shadow(none);
+    }
+
+    &.placeholder {
+      text-transform: lowercase;
+
+      &:first-letter {
+        text-transform: uppercase;
+      }
+    }
+
+    &:-moz-placeholder {
+      text-transform: lowercase;
+
+      &:first-letter {
+        text-transform: uppercase;
+      }
+    }
+
+    &::-webkit-input-placeholder {
+      text-transform: lowercase;
+
+      &:first-letter {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .description {
+    margin-top: 5px;
+  }
+}

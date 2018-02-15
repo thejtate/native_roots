@@ -1,0 +1,74 @@
+.page-social .content-wrapper {
+  padding: 100px 0;
+  text-align: center;
+
+  h2 {
+    text-align: center;
+    font-family: $din-cond-bold;
+    margin-bottom: 80px;
+  }
+
+  .social-menu {
+    text-align: center;
+
+    ul {
+      margin: 0;
+      padding: 0;
+
+      li {
+        margin: 0 0 0 50px;
+        display: inline-block;
+        vertical-align: middle;
+        padding: 0;
+        list-style: none;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+
+      a {
+        display: block;
+        @include transition(opacity .3s);
+        position: relative;
+
+        &:hover {
+
+          &:before {
+            @include transform(translate(-50%, 0));
+            opacity: 1;
+          }
+        }
+
+        &:before {
+          @include pseudo-block($left: 50%, $bottom: -20px);
+          width: 100px;
+          border-bottom: 12px solid #000;
+          @include transform(translate(-50%, 10px));
+          @include transition(all .3s);
+          opacity: 0;
+        }
+      }
+
+      .social-1 a {
+        @include retina-sprite(social-1-b);
+      }
+
+      .social-2 a {
+        @include retina-sprite(social-2-b);
+      }
+
+      .social-3 a {
+        @include retina-sprite(social-4-b);
+      }
+
+      .social-4 a {
+        @include retina-sprite(social-5-b);
+      }
+
+      .social-5 a {
+        @include retina-sprite(social-6-b);
+      }
+    }
+  }
+}

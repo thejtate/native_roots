@@ -1,0 +1,70 @@
+.page-gallery .content-wrapper {
+  padding: 0;
+  @include backface-visibility(hidden);
+
+  .list {
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      @include clearfix();
+    }
+
+    li {
+      @include backface-visibility(hidden);
+      overflow: hidden;
+      float: left;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border: 1px solid #fff;
+      border-left: none;
+      border-top: none;
+      position: relative;
+
+      &:first-child {
+        border-left: 1px solid #fff;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        @include transition(opacity 1s);
+      }
+
+//      .field-item a:before {
+//        @include pseudo-block($left: 0, $top: 0, $bottom: 0, $right: 0);
+//        background: #3caf49;
+//        opacity: 0;
+//        @include transition(opacity 1.2s);
+//        z-index: 1;
+//      }
+
+      &:hover {
+
+        .overlay {
+          opacity: 1;
+        }
+
+//        .field-item {
+
+//          a:before {
+//            opacity: .3;
+//          }
+
+//          img {
+//            @include transform(scale(1.1));
+//          }
+//        }
+      }
+
+//      img {
+//        @include transition(transform 7.4s);
+//        @include transform(scale(1));
+//      }
+    }
+  }
+}

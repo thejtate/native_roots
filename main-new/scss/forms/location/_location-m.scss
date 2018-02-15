@@ -1,0 +1,7 @@
+.form-location {
+  margin-bottom: 20px;
+
+  .form-item:last-child, .form-radius, .form-radius .form-item, .form-radius label {
+    margin-bottom: 0;
+  }
+}

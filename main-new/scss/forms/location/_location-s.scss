@@ -1,0 +1,27 @@
+.form-location {
+  margin-bottom: 20px;
+  margin-top: 2px;
+
+  .mobile {
+    display: block;
+    font-size: 18px;
+    font-family: $din-cond-bold;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+
+  .form-item:not(.form-type-select) {
+    display: none;
+  }
+
+  .form-radius .form-item {
+    display: block;
+    margin-left: 0;
+  }
+
+  .form-type-select {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+}

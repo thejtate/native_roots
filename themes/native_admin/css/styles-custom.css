@@ -1,0 +1,292 @@
+body.adminimal-theme .cke_button_on {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, .6) inset, 0 1px 0 rgba(0, 0, 0, .2) !important;
+  background: #E6E6E6 !important;
+}
+
+.page-admin-content .sticky-table tr {
+  border-bottom: 1px solid #ccc;
+}
+
+body.adminimal-skin-material table.tableheader-processed tr {
+  border-bottom: 1px solid #ccc;
+}
+
+.views-submit-button {
+  margin-right: 15px;
+}
+
+.view-manage-content td.manage-content-image {
+  padding: 5px;
+}
+
+.view-manage-content td.manage-content-image a {
+  padding: 0;
+}
+
+.admin-menu .ckeditor_links {
+  display: none !important;
+}
+
+.admin-menu .vertical-tabs, .admin-menu .filter-wrapper, .admin-menu .sticky-table, .admin-menu .cke {
+  border-radius: 4px !important;
+  -webkit-border-radius: 4px !important;;
+  -moz-border-radius: 4px !important;;
+  box-shadow: 0 1px 6px -3px #929292 !important;
+}
+
+.admin-menu .form-text {
+  padding: 5px 10px;
+  border: 1px solid #d3dbe2;
+  border-radius: 3px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+}
+
+.page-node-7 .image-preview img {
+  background: url('../img/alpha-img.jpg');
+}
+
+.page-node-7 .image-widget-data {
+  clear: both;
+}
+
+.admin-menu .field-type-image {
+  background: #fff;
+  border: 1px solid #DDD;
+  padding: 15px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  box-shadow: 0 1px 6px -3px #929292;
+}
+
+#ui-datepicker-div {
+  width: auto;
+  box-shadow: 0 0 34px -6px #000;
+  border: none !important;
+}
+
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+  top: 50% !important;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  background: none !important;
+}
+
+.ui-datepicker-calendar .ui-state-active, .ui-datepicker-calendar .ui-widget-content .ui-state-active, .ui-datepicker-calendar .ui-widget-header .ui-state-active {
+  background: #009688 !important;
+}
+
+.ui-datepicker .ui-datepicker-header {
+  background: #009688;
+  padding: 10px 0;
+}
+
+.ui-state-hover {
+  background: #E4E4E4 !important;
+}
+
+.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
+  padding: 5px;
+  box-sizing: border-box;
+  background: #B0DEDA;
+}
+
+.admin-menu #edit-field-cannabis-category-und {
+  width: 280px;
+}
+
+.ui-datepicker-calendar {
+  border: 10px solid #fff;
+}
+
+.ui-datepicker-calendar th {
+  background: none !important;
+  color: #B9B9B9 !important;
+  padding: 8px 0 15px;
+  font-size: 13px !important;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+  background: none;
+  border: none;
+}
+
+.ui-datepicker-today a {
+  background: #009688 !important;
+}
+
+.ui-dialog #ui-id-1 {
+  font-size: 20px !important;
+}
+
+#media-browser-tabset ul.tabs.primary li a:link {
+  line-height: 1 !important;
+}
+
+body.adminimal-theme .ui-dialog .ui-dialog-titlebar-close {
+  right: 5px !important;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+body.adminimal-skin-material table th {
+  padding: 8px 0px 15px 9px;
+}
+
+div.ctools-modal-content .modal-header {
+  padding: 10px;
+}
+
+div.ctools-modal-content a.close {
+  position: relative;
+  text-indent: -9999px;
+  background: #B73939;
+}
+
+#modalContent .ctools-modal-content {
+  padding-bottom: 25px;
+}
+
+.sticky-header a {
+  transition: none !important;
+  -webkit-transition: none !important;;
+  -moz-transition: none !important;;
+  -ms-transition: none !important;;
+}
+
+div.ctools-modal-content a.close:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url('../img/x-white.png');
+  height: 14px;
+  width: 15px;
+}
+
+html.js fieldset.collapsible div.fieldset-wrapper{
+  padding: 20px 0 0;
+}
+
+/*Image Proparties popup*/
+.cke_dialog_tabs {
+  margin: 1px 0 0 !important;
+}
+
+#cke_153_uiElement .cke_dialog_ui_hbox td {
+  vertical-align: bottom;
+}
+
+.cke_dialog_ui_button_ok {
+  color: #fff !important;
+}
+
+.select2-drop, .select2-search, .select2-input{
+  box-sizing: border-box !important;
+}
+
+/**/
+
+.entityconnect-edit input, .entityconnect-add input {
+  color: #393939 !important;
+}
+
+body.adminimal-theme .cke_browser_webkit.cke_ltr .cke_dialog_close_button {
+  background-position: 50%;
+}
+
+@media (max-width: 480px) {
+
+  div.vertical-tabs ul li.vertical-tab-button {
+    border-bottom: 1px solid #ccc;
+  }
+
+  div.vertical-tabs ul li.vertical-tab-button.selected {
+    border-left: 5px solid #0074BD;
+  }
+
+  div.vertical-tabs ul li.vertical-tab-button.selected a {
+    background: #fff !important;
+  }
+
+  .admin-menu .page-title {
+    font-size: 16px !important;
+    padding: 10px !important;
+  }
+
+  #branding .breadcrumb {
+    display: none;
+  }
+
+  ul.primary {
+    padding: 0 10px 10px 10px !important;
+  }
+
+  .admin-menu #navigation .tabs {
+    display: none;
+  }
+
+  .admin-menu #navigation .tabs.opened {
+    display: block;
+  }
+
+  .menu-btn {
+    height: 34px;
+    display: block;
+    background: #465861;
+    position: relative;
+    padding: 6px 43px;
+    box-sizing: border-box !important;
+    -webkit-box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    -ms-box-sizing: border-box !important;
+    color: #fff !important;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  .menu-btn:hover {
+    text-decoration: none;
+  }
+
+  .menu-btn:after {
+    content: 'Tabs';
+    position: absolute;
+    left: 45px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+  }
+
+  .menu-btn:before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    border-left: 7px solid transparent;
+    border-top: 9px solid #fff;
+    border-right: 7px solid transparent;
+    transition: all .3s;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+  }
+
+  .menu-btn.active:before {
+    transform: translateY(-50%) rotate(180deg);
+    -webkit-transform: translateY(-50%) rotate(180deg);
+    -moz-transform: translateY(-50%) rotate(180deg);
+    -ms-transform: translateY(-50%) rotate(180deg);
+  }
+}

@@ -1,0 +1,24 @@
+.page-not-found .content-wrapper {
+  background: #fff;
+  text-align: center;
+
+  h2, h3 {
+    font-family: $din-cond-bold;
+  }
+
+  h2 {
+    font-size: 72px;
+
+    span {
+      color: $color-a;
+    }
+  }
+
+  h3 {
+    color: $color-b;
+  }
+
+  .img {
+    margin: -105px 0;
+  }
+}

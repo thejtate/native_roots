@@ -1,0 +1,8 @@
+name = Native roots admin theme
+description = This is a sub-theme of theme Adminimal
+core = 7.x
+base theme = adminimal
+
+stylesheets[all][] = css/styles-custom.css
+
+scripts[] = js/js.js

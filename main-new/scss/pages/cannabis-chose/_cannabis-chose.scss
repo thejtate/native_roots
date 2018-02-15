@@ -1,0 +1,44 @@
+.page-cannabis-chose {
+
+  &.page-taxonomy-term-40 .content-wrapper .rendering-content .view-content img {
+    max-width: 879px;
+  }
+
+  &.page-taxonomy-term-43 .content-wrapper .rendering-content .view-content img {
+    max-width: 904px;
+  }
+
+  &.page-taxonomy-term-41, &.page-taxonomy-term-42 {
+
+    .content-wrapper .rendering-content .view-content img {
+      max-width: 883px;
+    }
+  }
+
+  .content-wrapper {
+    padding-bottom: 0;
+
+    .content-middle:before {
+      display: none;
+    }
+
+    .rendering-content {
+      text-align: center;
+
+      .view-content img {
+        width: 100%;
+      }
+    }
+
+    .top-desc {
+      text-align: center;
+      max-width: 740px;
+      margin: 0 auto;
+
+      h2 {
+        font-family: $din-cond-bold;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+.form-types {
+  padding: 20px 0 18px 0;
+
+  .pull-left, .pull-right {
+    float: none;
+  }
+
+  label {
+    vertical-align: top;
+    margin-top: 8px;
+  }
+
+  .form-radios {
+    display: block;
+  }
+
+  .link {
+    margin-left: 0;
+  }
+
+  .link, .type, .views-widget {
+    margin-top: 10px;
+  }
+
+  .views-exposed-form {
+    text-align: left;
+
+    .views-widget-filter-term_node_tid_depth, .views-widget-filter-tid {
+      display: block;
+      margin-left: 0;
+    }
+
+    .type {
+      margin-left: 20px;
+    }
+  }
+
+  .pull-left, .views-widget-filter-term_node_tid_depth {
+    margin-bottom: 3px;
+  }
+}

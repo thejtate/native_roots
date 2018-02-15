@@ -1,0 +1,66 @@
+.form-sort {
+  float: left;
+
+  .page-news & {
+    float: none;
+  }
+
+  .views-widget {
+
+    .page-news & {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .form-item {
+
+      .page-news & {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .views-exposed-form .views-exposed-widget {
+
+    .page-news & {
+      float: left;
+    }
+
+    .form-type-select {
+      margin-right: 20px;
+
+      &:first-child {
+
+        .page-news & {
+          float: right;
+        }
+      }
+    }
+  }
+
+  .select2-container {
+    text-transform: none;
+
+    .select2-selection--single {
+
+      .select2-selection__rendered {
+        background: #e1e1e1;
+        color: $color-b;
+      }
+
+      .select2-selection__arrow b {
+        @include oneline-sprite($icons, icon-arrow-style-b);
+      }
+    }
+  }
+
+  label, .form-item {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+  }
+
+  label {
+    margin-right: 15px;
+  }
+}

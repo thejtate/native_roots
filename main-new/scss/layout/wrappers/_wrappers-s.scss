@@ -1,0 +1,63 @@
+.outer-wrapper {
+  padding-bottom: 30px;
+  overflow-y: auto;
+
+  .block-title {
+
+    &.title-mobile {
+      display: block;
+      margin-bottom: 4px;
+      padding: 0 5%;
+
+      h1 {
+        display: inline-block;
+      }
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-left: 16px;
+
+      .page-cannabis & {
+        margin-bottom: 5px;
+      }
+
+      &:before {
+        top: 4px;
+        bottom: 2px;
+        left: -16px;
+        width: 10px;
+      }
+    }
+
+    h2 {
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    h3 {
+      margin: 10px 0;
+    }
+
+    .subtitle {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.content-wrapper {
+  padding: 20px 0;
+
+  &:before, &:after {
+    display: none !important;
+  }
+}
+
+.breadcrumbs {
+  font-size: 24px;
+  margin-bottom: 20px;
+
+  .separator {
+    margin: 0 4px 1px 2px;
+  }
+}

@@ -1,0 +1,27 @@
+name = Native main theme
+description = Custom theme for Native Roots.
+package = Core
+version = VERSION
+core = 7.x
+
+stylesheets[all][] = css/styles.css
+stylesheets[all][] = css/custom.css
+
+scripts[] = js/lib/jquery.cookie.js
+scripts[] = js/lib/device.min.js
+#scripts[] = js/lib/jquery.simplr.smoothscroll.min.js
+scripts[] = js/lib/cherry.parallax.js
+scripts[] = js/lib/jquery.flexslider-min.js
+scripts[] = js/lib/select2.full.js
+scripts[] = js/lib/circles.min.js
+;scripts[] = js/lib/soundmanager2.js
+scripts[] = js/lib/masonry.pkgd.js
+scripts[] = js/lib/jquery.fancybox.pack.js
+scripts[] = js/js.js
+
+regions[header] = Header
+regions[after_header] = After Header
+regions[content_top] = Top Content
+regions[content] = Content
+regions[content_bottom] = Content bottom
+regions[footer] = Footer

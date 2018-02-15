@@ -1,0 +1,136 @@
+.page-neighbors .content-wrapper {
+
+  @media (max-width: $width-tablet - 1) {
+    background: #fff;
+  }
+
+  .block-title {
+    margin-bottom: 20px;
+
+    @media (min-width: $width-tablet) {
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 50px;
+
+      &:before {
+        display: none;
+      }
+
+      @media (min-width: $width-tablet) {
+        font-size: 140px;
+      }
+
+      @media (min-width: $width) {
+        font-size: 150px;
+      }
+
+      &:before {
+        display: block;
+        top: 50%;
+        background: image-url('tmp/icon-plus-big.png') no-repeat;
+        width: 193px;
+        height: 201px;
+        z-index: -1;
+        @include transform(translate(0, -50%) scale(.3));
+        left: -92px;
+
+        @media (min-width: $width-tablet) {
+          @include transform(translate(0, -50%));
+          left: -84px;
+        }
+      }
+    }
+  }
+
+  h2, h3 {
+    font-family: $din-cond-bold;
+    color: #676767;
+  }
+
+  h3 {
+    font-size: 24px;
+    margin: 0;
+    line-height: 1;
+  }
+
+  .cols {
+    @include clearfix();
+
+    .col {
+      margin-bottom: 20px;
+
+      @media (min-width: $width-large) {
+        float: left;
+        margin-bottom: 0;
+
+        &:first-child {
+          width: 425px;
+        }
+
+        &:last-child {
+          width: 455px;
+          margin-left: 95px;
+        }
+      }
+    }
+  }
+
+  .list-type-a, .contacts {
+    text-transform: uppercase;
+    color: #3eb049;
+    font-family: $din-cond-bold;
+    font-size: 18px;
+    line-height: 1.4;
+  }
+
+  .list-type-a {
+    margin-bottom: 30px;
+
+    ul {
+      margin: 0;
+      padding: 0;
+
+      li {
+        list-style: none;
+        margin: 0;
+        padding: 0 0 0 14px;
+        position: relative;
+
+        &:before {
+          @include pseudo-block($left: 0, $top: -1px);
+          content: '+';
+        }
+      }
+    }
+  }
+
+  .community-partners {
+
+    @media (min-width: $width-tablet) {
+      @include clearfix();
+
+      .col-inner {
+        float: left;
+
+        &:first-child {
+          width: 226px;
+        }
+
+        &:last-child {
+          width: 180px;
+          margin-left: 34px;
+        }
+      }
+    }
+
+    .item {
+      margin-bottom: 10px;
+
+      a {
+        font-style: italic;
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.form-sort {
+
+  label {
+
+    .page-news & {
+      min-width: 60px;
+    }
+  }
+
+  .views-widget-filter-date_filter {
+
+    .page-news & {
+      margin-bottom: 18px;
+    }
+  }
+
+  .views-widget-sort-sort_bef_combine {
+
+    .page-news & {
+      clear: both;
+    }
+  }
+}

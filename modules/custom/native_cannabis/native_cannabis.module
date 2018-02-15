@@ -1,0 +1,273 @@
+<?php
+/**
+ * @file
+ * Cannabis site functionality
+ */
+define('NATIVE_CANNABIS_BUBBLE_TID', 40);
+define('NATIVE_CANNABIS_SHATTER_TID', 41);
+define('NATIVE_CANNABIS_SAP_TID', 43);
+define('NATIVE_CANNABIS_WAX_TID', 42);
+define('EXTRACT_TID', 19);
+define('NATIVE_CANNABIS_EDUCATION_NID', 13);
+define('NATIVE_CANNABIS_FLOWER_TID', 18);
+
+/**
+ * Implementation of hook_views_pre_build().
+ */
+function native_cannabis_views_pre_build(&$view) {
+  $display = isset($view->current_display) ? $view->current_display : '';
+  $view_name = isset($view->name) ? $view->name : '';
+  switch ($view_name) {
+    case "taxonomy_term":
+      if ($display == 'page') {
+        $args = isset($view->args[0]) ? $view->args[0] : '';
+        $landing_page = _native_cannabis_check_landing($args);
+        $back_button_page = (isset($_GET['destination']) && ($_GET['destination'] == 'item')) ? TRUE : FALSE;
+        if ($landing_page || $back_button_page) {
+          $pager = array(
+            'type' => 'none',
+            'options' => array(
+              'offset' => 0
+            )
+          );
+          $view->display_handler->set_option('pager', $pager);
+        }
+      }
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_preprocess_views_view().
+ */
+function native_cannabis_preprocess_views_view(&$vars) {
+  $view = $vars['view'];
+  $display = isset($view->current_display) ? $view->current_display : '';
+  $view_name = isset($view->name) ? $view->name : '';
+  switch ($view_name) {
+    case "taxonomy_term":
+      if ($display == 'page') {
+        $args = isset($view->args[0]) ? $view->args[0] : '';
+        $landing_page = _native_cannabis_check_landing($args);
+        $term = taxonomy_term_load($args);
+        $term_name = isset($term->name) ? $term->name : '';
+
+        if ($landing_page) {
+          $results = (isset($view->result) && !empty($view->result) && is_array($view->result)) ?
+            $view->result : array();
+          $node_select_options = array('none' => t('Pick your ') . $term_name);
+          foreach ($results as $result) {
+            $nid = isset($result->nid) ? $result->nid : '';
+            $title = isset($result->node_title) ? $result->node_title : '';
+
+            if ($nid && $title) {
+              $node_select_options['/node/' . $nid] = $title;
+            }
+          }
+          if ($node_select_options) {
+            $node_select = array(
+              '#type' => 'select',
+              '#options' => $node_select_options,
+              '#prefix' => '<div class="form-cannabis-select">',
+              '#suffix' => '</div>',
+            );
+            $vars['cannabis_node_select'] = $node_select;
+            $vars['cannabis_landing'] = TRUE;
+          }
+
+          $img_url = isset($term->field_category_landing_image[LANGUAGE_NONE][0]['uri']) ?
+            file_create_url($term->field_category_landing_image[LANGUAGE_NONE][0]['uri']) : '';
+          $img_height = isset($term->field_category_landing_image[LANGUAGE_NONE][0]['height']) ?
+            $term->field_category_landing_image[LANGUAGE_NONE][0]['height'] : '';
+          $img_width = isset($term->field_category_landing_image[LANGUAGE_NONE][0]['width']) ?
+            $term->field_category_landing_image[LANGUAGE_NONE][0]['width'] : '';
+          if ($img_url) {
+            $variables = array(
+              'path' => $img_url,
+              'alt' => '',
+              'title' => '',
+              'width' => $img_width,
+              'height' => $img_height,
+            );
+            $vars['cannabis_landing_image'] = theme('image', $variables);
+          }
+
+          $vars['cannabis_category'] = $term_name;
+          $vars['cannabis_category_desc'] = isset($term->description) ? $term->description : '';
+        }
+
+        $breadcrumb = drupal_get_breadcrumb();
+        if (!empty($breadcrumb)) {
+          unset($breadcrumb['0']);
+          $breadcrumb[] = '<span class="separator">›</span><div class="form form-filter">' . views_embed_view('cannabis', 'block_1') . '</div>';
+          $vars['breadcrumb'] = theme('item_list', array('items' => $breadcrumb));
+          $vars['breadcrumb'] = '<div class="breadcrumbs">' . $vars['breadcrumb'] . '</div>';
+        }
+      }
+      break;
+  }
+}
+
+/**
+ * Checking Bubble, Shatter, Sap, Wax landing pages.
+ *
+ * @param $arg
+ * @return bool
+ */
+function _native_cannabis_check_landing($arg) {
+  $arg = isset($arg) ? $arg : '';
+  switch ($arg) {
+    case NATIVE_CANNABIS_BUBBLE_TID:
+    case NATIVE_CANNABIS_SHATTER_TID:
+    case NATIVE_CANNABIS_SAP_TID:
+    case NATIVE_CANNABIS_WAX_TID:
+      return TRUE;
+      break;
+  }
+  return FALSE;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function native_cannabis_form_alter(&$form, $form_state, $form_id) {
+  $form['#attributes']['class'][] = 'form';
+  switch ($form_id) {
+    case 'views_exposed_form':
+      if ($form['#id'] == 'views-exposed-form-taxonomy-term-page') {
+        $form['#attributes']['class'][] = 'form-types';
+        $tid = arg(2);
+
+//        $children = taxonomy_get_children($tid);
+//        if (!empty($children)) {
+//          $options = array();
+//          $options['All'] = t('All');
+//          foreach ($children as $child) {
+//            $options[$child->tid] = $child->name;
+//          }
+//          $form['term_node_tid_depth']['#options'] = $options;
+//          $form['term_node_tid_depth']['#suffix'] = '<div class="link">' . l('What do these mean?', '/node/' . NATIVE_EDUCATION_NID) . '</div>';
+//        }
+//        else {
+//          $form['term_node_tid_depth']['#access'] = FALSE;
+//        }
+        if (isset($form['term_node_tid_depth'])) {
+          $form['term_node_tid_depth']['#suffix'] = '<div class="link">' . l(t('What do these mean?'), '/node/' . NATIVE_CANNABIS_EDUCATION_NID) . '</div>';
+          $form['term_node_tid_depth']['#suffix'] .= '<div class="type"><span class="type-item type-medical">' .
+            t('Medical') . '</span><span class="type-item type-recreational">' .
+            t('Recreational') . '</span></div>';
+          unset($form['term_node_tid_depth']['#description']);
+        }
+
+        if (array_key_exists('tid', $form)) {
+          unset($form['tid']['#description']);
+        }
+        $form['form_build_id']['#access'] = FALSE;
+        $form['form_token']['#access'] = FALSE;
+        $form['form_id']['#access'] = FALSE;
+      }
+      break;
+  }
+}
+
+
+/**
+ * Implements hook_preprocess_views_view_unformatted().
+ */
+function native_cannabis_preprocess_views_view_unformatted(&$vars) {
+  if ($vars['view']->name == 'cannabis') {
+    $result = $vars['view']->result;
+    if (!empty($result)) {
+      if ($vars['view']->current_display == 'page' || $vars['view']->current_display == 'block_3') {
+        $strain['none'] = t('Select your cannabis category');
+      }
+      foreach ($vars['view']->result as $key => $value) {
+        $path = base_path() . drupal_get_path_alias('taxonomy/term/' . $value->tid);
+        $strain[$path] = $value->taxonomy_term_data_name;
+      }
+      $vars['select'] = theme('select', array('element' => array('#options' => $strain)));
+    }
+  }
+}
+
+
+/**
+ * Implements hook_views_pre_view().
+ */
+function native_cannabis_views_pre_view(&$view, &$display_id, &$args) {
+  if ($view->name == 'taxonomy_term' && $view->current_display == 'page') {
+    $view_filters = $view->display_handler->get_option('filters');
+    $tid = arg(2);
+
+    if ($tid != EXTRACT_TID) {
+      unset($view_filters['tid']);
+    }
+    $view->display_handler->override_option('filters', $view_filters);
+  }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function native_cannabis_preprocess_html(&$vars) {
+
+  $find_suggestions = array_intersect(
+    array(
+      'html__taxonomy__term__' . NATIVE_CANNABIS_BUBBLE_TID,
+      'html__taxonomy__term__' . NATIVE_CANNABIS_SHATTER_TID,
+      'html__taxonomy__term__' . NATIVE_CANNABIS_SAP_TID,
+      'html__taxonomy__term__' . NATIVE_CANNABIS_WAX_TID,
+    ),
+    $vars['theme_hook_suggestions']
+  );
+
+  if (!empty($find_suggestions)
+  ) {
+    $vars['classes_array'][] = 'page-cannabis-chose';
+  }
+}
+
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ */
+function native_cannabis_preprocess_views_view_fields(&$vars) {
+  $view = $vars['view'];
+  if (($view->name == 'taxonomy_term') && ($view->current_display == 'page')) {
+    $row = isset($vars['row']) ? $vars['row'] : '';
+    if ($row && is_object($row)) {
+      $vars['nid'] = isset($row->nid) ? $row->nid : '';
+      $args = isset($view->args[0]) ? $view->args[0] : '';
+      $vars['categories_flower'] = ($args == NATIVE_CANNABIS_FLOWER_TID) ? TRUE : FALSE;
+
+      $vars['short_name'] = '';
+      $classification = isset($row->field_field_cannabis_classification) ? $row->field_field_cannabis_classification : array();
+      $title_field = !empty($vars['categories_flower']) ? 'name' : 'field_classification_short_name';
+      foreach ($classification as $item) {
+        $tid = isset($item['raw']['tid']) ? $item['raw']['tid'] : '';
+        $short_name = _native_cannabis_get_taxonomy_field_value($tid, array($title_field));
+        if (isset($short_name[$title_field])) {
+          $delimiter = (!empty($vars['categories_flower']) && !empty($vars['short_name'])) ? ' | ' : '';
+          $vars['short_name'] .= '<span class="desc-item">' . $delimiter . $short_name[$title_field] . '</span>';
+        }
+      }
+
+      $vars['med_or_rec'] = '';
+      $med_or_rec = isset($row->field_field_med_or_rec) ? $row->field_field_med_or_rec : array();
+      $image_field = !empty($vars['categories_flower']) ? 'field_med_or_rec_flower_image' : 'field_med_or_rec_image';
+      foreach ($med_or_rec as $item) {
+        $tid = isset($item['raw']['tid']) ? $item['raw']['tid'] : '';
+        $image = _native_cannabis_get_taxonomy_field_value($tid, array($image_field));
+        if (isset($image[$image_field])) {
+          $uri = isset($image[$image_field]['uri']) ? $image[$image_field]['uri'] : '';
+          $image = array(
+            'path' => $uri,
+            'attributes' => array('class' => array('icon-desc')),
+          );
+          $vars['med_or_rec'] .= '<span class="desc-item item-img">' . theme('image', $image) . '</span>';
+
+        }
+      }
+    }
+  }
+}

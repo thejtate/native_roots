@@ -1,0 +1,112 @@
+.page-cannabis-landing .content-wrapper {
+  text-align: center;
+  padding-bottom: 0;
+
+  h2 {
+    font-family: $din-cond-bold;
+    margin-bottom: 5px;
+  }
+
+  h3 {
+    font-family: $nickainley;
+    color: $color-b;
+    text-transform: none;
+  }
+
+  .content-top {
+    overflow: hidden;
+    min-height: 516px;
+    position: relative;
+    padding-top: 69px;
+
+    .el-with-animation {
+      position: absolute;
+      z-index: -1;
+      top: 100%;
+      @include transition(all 2s);
+      @include transform(translate(0, 0));
+      opacity: 0;
+
+      &.animating-end {
+        opacity: 1;
+      }
+    }
+
+    .el-1 {
+      left: 5px;
+      width: 337px;
+
+      &.animating-end {
+        @include transform(translate(0, -71px));
+        @include transition-delay(.5s);
+      }
+    }
+
+    .el-2 {
+      right: 356px;
+      width: 321px;
+
+      &.animating-end {
+        @include transform(translate(0, -77px));
+        @include transition-delay(.8s);
+      }
+    }
+
+    .el-3 {
+      right: 22px;
+      width: 337px;
+
+      &.animating-end {
+        @include transform(translate(0, -76px));
+        @include transition-delay(1.1s);
+      }
+    }
+  }
+
+  .content-middle {
+    position: relative;
+    padding: 62px 0 0;
+    z-index: 1;
+    margin-bottom: 62px;
+
+    &:before {
+      @include pseudo-block($left: 50%, $top: 0, $bottom: -62px);
+      background: #fff;
+      width: 4000px;
+      z-index: -1;
+      margin-left: -2000px;
+    }
+  }
+
+  .link a {
+    display: inline-block;
+    vertical-align: top;
+    border: 3px solid $color-b;
+    padding: 2px 60px 2px 12px;
+    font-size: 68px;
+    font-family: $din-cond-bold;
+    color: $color-b;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    text-decoration: none;
+    position: relative;
+    min-width: 250px;
+    line-height: 1;
+    @include transition(all .3s);
+
+    &:hover {
+      border: 3px solid $color-a;
+      color: $color-a;
+
+      &:before {
+        @include oneline-sprite($icons, icon-arrow-a);
+      }
+    }
+
+    &:before {
+      @include pseudo-block($right: 18px, $top: 50%);
+      @include oneline-sprite-box($icons, icon-arrow);
+      @include transform(translate(0, -50%));
+    }
+  }
+}

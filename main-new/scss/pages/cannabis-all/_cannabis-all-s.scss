@@ -1,0 +1,119 @@
+.page-cannabis-all .content-wrapper {
+
+  .info {
+    padding: 30px 0;
+    width: 100%;
+
+    .img {
+      position: static;
+      width: 100%;
+      margin: 0 auto;
+      max-width: 330px;
+
+      img {
+        margin-top: 0;
+        max-width: 100%;
+        height: auto;
+        width: auto;
+        position: static;
+        @include transform(translate(0, 0));
+      }
+    }
+  }
+
+  .node-cannabis {
+    display: none;
+  }
+
+  .content-top .text {
+    width: 100%;
+  }
+
+  .top-controls {
+
+    .results, .form-sort {
+      display: none;
+    }
+  }
+
+  .content-middle {
+    padding-top: 30px;
+
+    .items-wrapper {
+      height: auto;
+      margin: 0 -7%;
+      padding: 0;
+
+      &:first-child {
+        padding-top: 0;
+        height: auto;
+      }
+
+      &:before {
+        display: none !important;
+      }
+
+      h3 {
+        font-size: 30px;
+        margin: 0;
+      }
+
+      .desc {
+        margin-bottom: 4px;
+      }
+
+      .desc-2 {
+        margin: 4px 0 0;
+      }
+
+      .item {
+        border-top: 1px solid #aeaeae;
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0;
+        text-align: left;
+        padding: 0 5%;
+
+        &:before {
+          display: none !important;
+        }
+
+        img:not(.icon-desc) {
+          position: absolute;
+          left: 0;
+          top: 50%;
+          width: 105px;
+          @include transform(translate(0, -50%));
+        }
+
+        a {
+          padding: 25px 20px 25px 115px;
+          display: block;
+          position: relative;
+          @include clearfix();
+
+          &:before {
+            @include pseudo-block($right: 0, $top: 50%);
+            @include transform(translate(0, -50%));
+            @include oneline-sprite-box($icons, icon-arrow);
+          }
+
+          &:hover img:not(.icon-desc) {
+            @include transform(translate(0, -50%) scale(1));
+          }
+        }
+      }
+
+      .titles {
+        position: static;
+        @include transform(scale(1));
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .info-type-2 {
+    height: 200px;
+  }
+}

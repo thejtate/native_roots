@@ -1,0 +1,358 @@
+div.b-player {
+  line-height: 1.2;
+  max-width: 320px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  margin-left: -160px;
+  @include transform(translate(0, -50%));
+
+  h3 {
+    font-family: $din-cond-bold;
+    color: $color-b;
+    text-transform: uppercase;
+    line-height: 1.1;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .sm2-main-controls {
+    text-align: left;
+    background: #282828;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+
+    & > .sm2-button-element, & > .sm2-inline-status {
+      display: table-cell;
+      vertical-align: top;
+    }
+
+    & > .sm2-button-element {
+      width: 79px;
+    }
+  }
+
+  .sm2-playlist-drawer {
+    text-align: left;
+    background: #181818;
+    max-height: 272px;
+    overflow: hidden;
+    padding-right: 10px;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .sm2-playlist-bd {
+
+    b {
+      display: block;
+    }
+
+    li {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+  }
+
+  .sm2-inline-status, .sm2-playlist-wrapper {
+
+    b {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+
+  .sm2-inline-status, .sm2-playlist-wrapper {
+    color: #9ca09c;
+
+    a {
+      color: #9ca09c;
+      text-decoration: none;
+    }
+  }
+
+  .sm2-inline-duration {
+    display: none;
+  }
+
+  .sm2-playlist-wrapper {
+    padding: 10px 0;
+    position: relative;
+
+    .sm2-playlist-bd {
+      counter-reset: test;
+      max-height: 252px;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: $color-a;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #404040;
+        border-radius: 10px;
+      }
+    }
+
+    li {
+      position: relative;
+
+      &:last-child a {
+        border-bottom: none;
+      }
+
+      &:before, &:after {
+        @include pseudo-block($top: 50%);
+        @include transform(translate(0, -50%));
+        display: none;
+        margin-top: -1px;
+      }
+
+      &:before {
+        background: #404040;
+        left: 8px;
+        width: 26px;
+        height: 26px;
+        @include border-radius(50%);
+        overflow: hidden;
+      }
+
+      &:after {
+        left: 16px;
+        font-family: $fontawesome;
+        content: '\f028';
+        font-size: 14px;
+        color: #fff;
+      }
+
+      a:before {
+        @include pseudo-block($left: 0, $top: 50%);
+        @include transform(translate(14px, -50%));
+        counter-increment: test;
+        content: counter(test);
+        font-size: 15px;
+        width: 15px;
+        text-align: center;
+      }
+    }
+
+    a {
+      z-index: 1;
+      position: relative;
+      display: block;
+      margin-right: 16px;
+      padding: 6px 0 6px 45px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border-bottom: 1px solid #282828;
+    }
+  }
+
+  .sm2-playlist {
+    margin-bottom: 12px;
+    font-size: 15px;
+
+    li {
+      height: 36px;
+    }
+  }
+
+  .sm2-inline-status {
+    padding: 10px 10px 4px;
+  }
+
+  .sm2-progress-bd, .sm2-button-next, .sm2-inline-time, .sm2-mute, .sm2-volume {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .sm2-button-next {
+
+    a:before {
+      font-family: $fontawesome;
+      content: '\f051';
+    }
+  }
+
+  .sm2-mute {
+
+    a {
+      color: $color-a;
+      width: 16px;
+      display: inline-block;
+
+      &:before {
+        font-family: $fontawesome;
+        content: '\f028';
+      }
+    }
+
+    &.active a:before {
+      content: '\f026';
+    }
+  }
+
+  &.paused, &.playing {
+
+    .play-pause, .sm2-playlist-wrapper li.selected {
+
+      &:after, &:before {
+        display: block;
+      }
+
+      a:before {
+        opacity: 0;
+      }
+    }
+  }
+
+  &.paused {
+
+    .play-pause {
+
+      &:after {
+        content: '\f04b';
+        margin-left: 2px;
+      }
+    }
+  }
+
+  &.playing {
+
+    .play-pause {
+
+      &:after {
+        content: '\f04c';
+      }
+    }
+  }
+
+  .play-pause {
+    width: 79px;
+    height: 79px;
+    display: block;
+    position: relative;
+
+    &:before {
+      @include pseudo-block($left: 50%, $top: 50%);
+      @include transform(translate(-50%, -50%));
+      background: #404040;
+      width: 40px;
+      height: 40px;
+      @include border-radius(50%);
+      overflow: hidden;
+      display: none;
+    }
+
+    &:after {
+      font-family: $fontawesome;
+      @include pseudo-block($left: 50%, $top: 50%);
+      content: '\f04d';
+      font-size: 20px;
+      color: #fff;
+      @include transform(translate(-50%, -50%));
+      display: none;
+    }
+
+    .text {
+      display: none;
+    }
+  }
+
+  .sm2-button-next, .sm2-inline-time, .sm2-mute {
+    margin-left: 5px;
+  }
+
+  .sm2-progress-track {
+    width: 127px;
+    background: #404040;
+    @include border-radius(12px);
+    height: 5px;
+  }
+
+  .sm2-progress-bar {
+    background: $color-a;
+    @include border-radius(12px);
+    height: 100%;
+    width: 0;
+  }
+
+  .sm2-volume {
+    width: 42px;
+    height: 17px;
+    position: relative;
+
+    .sm2-button-bd {
+      width: 42px;
+      height: 17px;
+      position: relative;
+    }
+
+    .sm2-inline-element {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .sm2-inline-button {
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      line-height: 10em;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      -ms-interpolation-mode: nearest-neighbor;
+      -ms-interpolation-mode: bicubic;
+    }
+
+    a {
+      color: #fff;
+    }
+
+    .sm2-volume-control, .sm2-volume-shade {
+      background-position: 42% 50%;
+      background-size: 56%;
+      @include text-hide();
+      cursor: pointer;
+    }
+
+    .sm2-volume-control {
+      background-image: image-url('entypo-25px-ffffff/PNG/volume.png');
+//      background-image: none, image-url('entypo-25px-ffffff/SVG/volume.svg');
+    }
+
+    .volume-shade {
+      filter: alpha(opacity=99);
+      opacity: 0.99;
+      cursor: pointer;
+      background-image: image-url('entypo-25px-000000/PNG/volume.png');
+//      background-image: none, image-url('entypo-25px-000000/SVG/volume.svg');
+    }
+  }
+}

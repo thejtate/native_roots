@@ -1,0 +1,99 @@
+.form-types {
+  padding: 20px 0 12px 0;
+
+  label {
+    display: block;
+    margin: 0 0 12px;
+  }
+
+  .pull-left, .pull-right {
+    float: none;
+  }
+
+  .views-exposed-form {
+    text-align: left;
+
+    .views-widget-filter-term_node_tid_depth, .views-widget-filter-tid {
+      display: none;
+      margin-left: 0;
+
+      .filter-is-active & {
+        display: block;
+      }
+    }
+
+    .type {
+      margin-left: 0;
+    }
+  }
+
+  .pull-left, .views-widget-filter-term_node_tid_depth {
+    margin-bottom: 10px;
+  }
+
+  .form-radios, .link, .views-widget, .item-with-desc {
+    display: block;
+  }
+
+  .link, .type {
+    margin-left: 0;
+  }
+
+  .type {
+    margin-top: 6px;
+  }
+
+  .item-with-desc {
+    margin-left: 0;
+    margin-bottom: 12px;
+
+    .form-item {
+      margin-bottom: 0;
+      display: inline-block;
+    }
+  }
+
+  .form-item {
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .widget-header {
+    display: block;
+    padding-bottom: 8px;
+    color: #fff;
+    font-family: $din-cond-bold;
+    text-transform: uppercase;
+    font-size: 16px;
+    padding-right: 20px;
+    position: relative;
+
+    &:before {
+      @include pseudo-block($right: 0, $top: 50%);
+      @include oneline-sprite-box($icons, icon-arrow-style-a);
+      @include transform(translate(0, -50%));
+      margin-top: -5px;
+
+      .filter-is-active & {
+        @include transform(translate(0, -50%) rotate(180deg));
+      }
+    }
+
+    .filter-is-active & {
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid $color-a;
+    }
+
+    .widget-header-sort-by, .widget-header-type-of-extract {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+
+    .el-text {
+      margin-left: 5px;
+      color: $color-a;
+    }
+  }
+}

@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * @file
+ * shopify_share
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function shopify_share_theme() {
+  $return = array();
+
+  $return['shopify_share'] = array(
+    'variables' => array(
+      'url' => NULL,
+      'image_url' => NULL,
+      'show_count' => TRUE,
+      'share_title' => '',
+    ),
+    'path' => drupal_get_path('module', 'shopify_share') . "/templates",
+    'template' => 'shopify-share'
+  );
+
+  return $return;
+}
+
+/**
+ * Implements template_preprocess_shopify_share().
+ */
+function shopify_share_preprocess_shopify_share(&$vars) {
+
+  $attached = &drupal_static(__FUNCTION__);
+  if(empty($attached)) {
+    $path = drupal_get_path('module', 'shopify_share');
+    drupal_add_css($path . '/css/shopify_share.css');
+    drupal_add_js($path . '/js/shopify-share-social-buttons.js');
+
+    $attached = TRUE;
+  }
+
+}
+
+/**
+ * Implements template_preprocess_node().
+ */
+function shopify_share_preprocess_node(&$vars) {
+
+  $node = $vars['node'];
+  if($vars['type'] == 'news' && $vars['view_mode'] == 'full') {
+
+    $vars['content']['socials'] = array(
+      '#url' => url('node/' . $node->nid, array('absolute' => TRUE)),
+      '#image_url' => !empty($vars['field_news_gallery'][0]['uri']) ? file_create_url($vars['field_news_gallery'][0]['uri']) : '',
+      '#share_title' => $node->title,
+      '#theme' => 'shopify_share',
+      '#weight' => 50,
+    );
+  } else if($vars['type'] == 'cannabis' && $vars['view_mode'] == 'full') {
+
+    $vars['content']['socials'] = array(
+      '#url' => url('node/' . $node->nid, array('absolute' => TRUE)),
+      '#image_url' => !empty($vars['field_cannabis_image'][LANGUAGE_NONE][0]['uri']) ? file_create_url($vars['field_cannabis_image'][LANGUAGE_NONE][0]['uri']) : '',
+      '#share_title' => $node->title,
+      '#theme' => 'shopify_share',
+      '#weight' => 50,
+    );
+  }
+
+}
